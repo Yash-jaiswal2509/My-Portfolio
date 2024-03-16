@@ -3,14 +3,5 @@ import { registerUser } from "../controllers/users.controller";
 import { upload } from "../middlewares/multer.middleware";
 
 const router = Router();
-router.route("/register").post(
-  upload.fields([
-    {
-      name: "coverImage",
-      maxCount: 1,
-    },
-  ]),
-  registerUser
-);
-
+router.post("/register", upload.single("coverImage"), registerUser);
 export default router;

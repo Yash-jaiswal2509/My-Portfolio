@@ -8,8 +8,9 @@ const userSchema = new mongoose.Schema(
     fullName: { type: String, require: true },
     username: { type: String, require: true },
     email: { type: String, required: true },
-    passwrod: { type: String, required: [true, "Password is required"] },
-    confirmPassword: { type: String, required: true },
+    password: { type: String, required: [true, "Password is required"] },
+    confirmPassword: { type: String},
+    coverImage: { type: String, reqruied: true },
     refreshToken: { type: String },
   },
   {
@@ -18,8 +19,8 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("passwrod")) {
-    this.passwrod = await bcrypt.hash(this.passwrod, 10);
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
