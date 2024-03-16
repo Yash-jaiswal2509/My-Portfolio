@@ -1,12 +1,6 @@
-import multer from "multer"
+import multer, { Multer } from "multer";
+import { Request } from "express";
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "./public/temp")
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-
-export const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+//initialized multer-generates a middleware for storing files temporary before uploading it to the cloudinary
+export const upload: Multer = multer({ storage: storage });
