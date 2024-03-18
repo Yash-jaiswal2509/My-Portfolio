@@ -17,10 +17,10 @@ const uploadToCloudinary = async (localFilePath: Express.Multer.File) => {
       folder: "portfolio-images"
     });
     // file has been uploaded successfull
-    console.log("file is uploaded on cloudinary:", response.url);
+    fs.unlinkSync(localFilePath.path);
     return response;
   } catch (error) {
-    // remove the locally saved temporary file as the upload operation got failed
+    // removes the locally saved temporary file as the upload operation got failed
     fs.unlinkSync(localFilePath.path);
     return null;
   }

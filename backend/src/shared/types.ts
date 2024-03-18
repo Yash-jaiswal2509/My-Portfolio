@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 
+//required to change the types as writing in typescript.(included last 3 fields)
 export interface UserDocument extends Document {
   fullName: string;
   username: string;

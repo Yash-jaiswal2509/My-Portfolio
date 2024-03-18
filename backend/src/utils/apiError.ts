@@ -1,7 +1,7 @@
 class apiError extends Error {
   statusCode: number;
   // Initializing default value in typescript
-  message: string = "Something went wrong";
+  message: string;
   errors?: any[];
   stack?: string | undefined;
   success: boolean = false;
@@ -9,11 +9,12 @@ class apiError extends Error {
 
   constructor(
     statusCode: number,
-    message: string,
+    message: string = "Something went wrong",
     errors?: [],
     stack?: string
   ) {
     super(message);
+    this.message = message;
     this.statusCode = statusCode;
     this.errors = errors;
     if (stack) {
