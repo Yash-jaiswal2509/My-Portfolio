@@ -1,12 +1,16 @@
-export type UserType = {
-  _id: string;
+import { Document } from "mongoose";
+
+export interface UserDocument extends Document {
   fullName: string;
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  coverImage: string;
   refreshToken: string;
-};
+  isPasswordCorrect(password: string): Promise<boolean>;
+  generateAccessToken(): Promise<string>;
+  generateRefreshToken(): Promise<string>;
+}
 
 export type ProjectType = {
   _id: string;
