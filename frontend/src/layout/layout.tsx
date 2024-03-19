@@ -17,6 +17,7 @@ const Layout = ({ children }: LayoutProps) => {
                 <main className="flex flex-1">
                     <Sidebar />
                     {children}
+                    
                 </main>
                 <Footer />
             </div>
