@@ -34,8 +34,11 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     8. return response
   */
 
+  //This comes from client side or frontend
   const { fullName, username, email, password } = req.body;
   // trim removes whitespace
+  console.log(req.body);
+  console.log(req.file as Express.Multer.File);
   if (
     [fullName, username, email, password].some((field) => field?.trim() === "")
   ) {
@@ -50,14 +53,18 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(409, "User already exists");
   }
 
+  //Taking a cover-image, when registering
   const coverImageLocalPath = req.file;
+  console.log(coverImageLocalPath);
 
   if (!coverImageLocalPath) {
     throw new apiError(400, "Cover image is required");
   }
 
+  //uploading it to cloudinary
   const coverIamge = await uploadToCloudinary(coverImageLocalPath);
 
+  //creating a user by taking input from req.body and req.file
   const user = await User.create({
     fullName,
     coverImage: coverIamge?.url,
@@ -65,6 +72,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     password,
     username: username.toLowerCase(),
   });
+
+  console.log(user);
 
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -74,6 +83,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(500, "Something went wrong while user registration");
   }
 
+  //When user successfully registers we are sending response to client using createdUser in which we are not sending password and refresh token
   res
     .status(201)
     .json(new apiResponse(200, createdUser, "User registered successfully"));
@@ -81,16 +91,20 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
 //login
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
-  //req body -> data
-  //email
-  //check if registered or not
-  //password check
-  //access token and refresh token
-  //send secure cookies
-  //response
+  /*
+  --req body -> data
+  --email
+  --check if registered or not
+  --password check
+  --access token and refresh token
+  --send secure cookies
+  --response
+  */
 
+  // taking input from user or frontend through req.body
   const { email, username, password } = req.body;
 
+  //when you only want to login through one parameter, either username or email
   if (!username && !email) {
     throw new apiError(400, "Username or Email is required");
   }
@@ -103,6 +117,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(404, "User doesn't exists");
   }
 
+  //this is done while building model through
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
@@ -113,6 +128,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     user._id
   );
 
+  //sending data to client except password and refresh token
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
@@ -122,6 +138,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     secure: true,
   };
 
+  //sending tokens in form of cookies and data in form of json
   res
     .status(200)
     .cookie("accessToken", accessToken, options)
@@ -137,7 +154,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 
 //logout
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
-  await User.findByIdAndUpdate(
+  const loggedOutUser = await User.findByIdAndUpdate(
     req.user._id,
     {
       $set: {
@@ -148,6 +165,8 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
       new: true,
     }
   );
+
+  console.log(loggedOutUser);
 
   const options = {
     httpOnly: true,
@@ -167,7 +186,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
     const incomingRefreshToken =
       req.cookies.refreshToken || req.body.refreshToken;
 
-    if (incomingRefreshToken) {
+    if (!incomingRefreshToken) {
       throw new apiError(401, "unauthorized request");
     }
 
@@ -207,7 +226,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
         )
       );
   } catch (error) {
-    throw new apiError(401, error as string || "Invalid refresh token");
+    throw new apiError(401, (error as string) || "Invalid refresh token");
   }
 });
 
