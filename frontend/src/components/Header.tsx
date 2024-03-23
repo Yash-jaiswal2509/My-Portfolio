@@ -20,7 +20,7 @@ const Header = () => {
       <div className="flex hover:opacity-95">
         <ModeToggle />
         <Link to="/login">
-          <Button className={cn("mx-4 text-lg font-semibold hover:shadow-lg")}>
+          <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
             Login
             <ArrowRight className="ml-1" />
           </Button>
