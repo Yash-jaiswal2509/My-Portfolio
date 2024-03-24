@@ -10,10 +10,13 @@ import { UserDocument } from "../shared/types";
 const generateAccessAndRefreshTokens = async (userId: string) => {
   try {
     const user = (await User.findById(userId)) as UserDocument;
+
     const accessToken = await user.generateAccessToken();
+    // console.log(accessToken);
     const refreshToken = await user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
+    //validation not required because email and password is already verified
     await user?.save({ validateBeforeSave: false });
     return { accessToken, refreshToken };
   } catch (error) {
@@ -37,8 +40,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   //This comes from client side or frontend
   const { fullName, username, email, password } = req.body;
   // trim removes whitespace
-  console.log(req.body);
-  console.log(req.file as Express.Multer.File);
   if (
     [fullName, username, email, password].some((field) => field?.trim() === "")
   ) {
@@ -55,7 +56,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   //Taking a cover-image, when registering
   const coverImageLocalPath = req.file;
-  console.log(coverImageLocalPath);
 
   if (!coverImageLocalPath) {
     throw new apiError(400, "Cover image is required");
@@ -72,8 +72,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     password,
     username: username.toLowerCase(),
   });
-
-  console.log(user);
 
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -129,7 +127,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   );
 
   //sending data to client except password and refresh token
-  const loggedInUser = await User.findById(user._id).select(
+  const loggedInUser = await User.findById(user._id.toString()).select(
     "-password -refreshToken"
   );
 
@@ -155,7 +153,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 //logout
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const loggedOutUser = await User.findByIdAndUpdate(
-    req.user._id,
+    req.user._id.toString(),
     {
       $set: {
         refreshToken: undefined,

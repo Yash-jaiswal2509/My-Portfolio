@@ -53,7 +53,7 @@ userSchema.methods.generateRefreshToken = async function (): Promise<string> {
     {
       _id: this._id,
     },
-    process.env.REFRESH_TOKEN_KEY as string,
+    process.env.REFRESH_TOKEN_SECRET as string,
 
     {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
