@@ -39,8 +39,11 @@ const Register = () => {
   const mutation = useMutation({
     mutationFn: ApiClient.register,
     onSuccess: () => {
-      toast("User successfully created!!");
+      toast("Successfully Registered!!");
       navigate("/");
+    },
+    onError: (errors) => {
+      toast(`${errors.message}`);
     },
   });
 
@@ -51,7 +54,6 @@ const Register = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append(`coverImage`, data.coverImage[0], "userImage");
-    console.log(formData);
     mutation.mutate(formData);
   });
 
@@ -237,6 +239,7 @@ const Register = () => {
                     <Button
                       type="submit"
                       className=" text-xl dark:bg-black/50 dark:hover:bg-black dark:text-white  "
+                      disabled={mutation.isPending}
                     >
                       {mutation.isPending ? "Registering..." : "Register"}
                     </Button>

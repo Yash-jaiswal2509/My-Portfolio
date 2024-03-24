@@ -4,17 +4,21 @@ export const SideBarTypes = [
   {
     icon: Home,
     name: "Home",
+    path: "/",
   },
   {
     icon: Projector,
-    name: "Project",
+    name: "Projects",
+    path: "/projects",
   },
   {
     icon: User,
     name: "About",
+    path: "/about",
   },
   {
     icon: Contact2,
     name: "Contact",
+    path: "/contact",
   },
 ];
