@@ -10,11 +10,11 @@ const Header = () => {
       <div className=" px-2 flex items-center gap-3 cursor-pointer">
         <img src="My-logo-light.png" className="h-16 w-16 dark:hidden" />
         <img src="My-logo-dark.png" className="h-16 w-16 hidden dark:block" />
-        <p className="font-inter text-2xl font-black hover:opacity-75">
+        <h1 className="font-inter text-2xl font-black hover:opacity-75">
           Yash's Portfolio
           <br />
           <p className="text-xs ml-1">Learning, Building, Repeating</p>
-        </p>
+        </h1>
       </div>
       <div></div>
       <div className="flex hover:opacity-95">

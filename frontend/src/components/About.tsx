@@ -24,7 +24,6 @@ const About = () => {
       }
 
       setGithubInfo(response.data);
-      console.log(response.data);
     };
 
     githubProfile();
@@ -49,7 +48,7 @@ const About = () => {
               <p>
                 Welcome to my portfolio!! 🌟 Each project is a story, waiting
                 for you to unfold. Thanks for stopping by—let’s make something
-                amazing together! 🚀
+                amazing together! 🧑🏻‍💻
               </p>
             </div>
           ) : (
@@ -62,22 +61,22 @@ const About = () => {
           )}
         </span>
         <div className="text-left text-nowrap text-sm flex flex-col gap-1">
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
             Name: Yash Jaiswal
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
             Degree: Bachelor of Technology
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 flex gap-1">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
             College:<p> Sardar Vallabhbhai National Institute of Technology</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 flex gap-1">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
             Interests:<p> Coding, programming and web development</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
             Email: yashjaiswal2509@gmail.com
           </h1>
-          <div className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 flex flex-col gap-2">
+          <div className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex flex-col gap-2">
             <p className=" text-xl text-center">Summary</p>
             <p className="text-wrap text-center">
               I'm a Fullstack Developer specializing in the MERN Stack, adeptly
@@ -115,7 +114,7 @@ const About = () => {
               : "hidden"
           }
         >
-          <a href="https://drive.google.com/file/d/1qJbFTpkR1bly7Drdg9jkZETSdnzgzMWu/view?usp=sharing">
+          <a href="https://drive.google.com/file/d/1qJbFTpkR1bly7Drdg9jkZETSdnzgzMWu/view?usp=sharing" target="_blank">
             Click to Open
           </a>
           <ArrowUpRightSquare strokeWidth={2} size={20} className="ml-2" />
