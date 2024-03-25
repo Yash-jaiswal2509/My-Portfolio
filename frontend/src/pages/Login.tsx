@@ -1,4 +1,4 @@
-import { SparklesCore } from "@/components/ui/sparkles";
+import { SparklesCore } from "../components/ui/sparkles";
 import { useTheme } from "@/lib/theme-provider";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
