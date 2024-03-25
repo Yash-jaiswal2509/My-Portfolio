@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://localhost:8000",
+      "/api": "my-portfolio-backend-six.vercel.app",
     },
   },
   plugins: [react()],
