@@ -15,6 +15,9 @@ app.use(
 app.use(cookieParser());
 
 import userRouter from "./routes/user.routes";
+import path from "path";
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ message: "Hola amigo!!! This is the server for my PortFolio" });
