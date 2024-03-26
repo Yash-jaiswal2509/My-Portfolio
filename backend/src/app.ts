@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.routes";
 
 const app = express();
 
@@ -14,10 +15,11 @@ app.use(
 );
 app.use(cookieParser());
 
-import userRouter from "./routes/user.routes";
-
-app.get("/", (req: Request, res: Response) => {
+app.get("/", async (req: Request, res: Response) => {
   res.send({ message: "Hola amigo!!! This is the server for my PortFolio" });
+});
+app.get("/health", async (req: Request, res: Response) => {
+  res.send({ message: "Health ok!" });
 });
 
 app.use("/api/v1/users", userRouter);

@@ -1,10 +1,35 @@
 import { SideBarTypes } from "@/types/Sidebar";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  //To get the location of the clicked type by pathname
+  const location = useLocation();
   const [selectDiv, setSelectDiv] = useState(0);
+
+  //read from local storage on component mount
+  useEffect(() => {
+    const storedIndex = localStorage.getItem("selectedSidebarIndex");
+    if (storedIndex !== null) {
+      setSelectDiv(parseInt(storedIndex));
+    }
+  }, []);
+
+  //update local storage when selected sidebar item changes
+  useEffect(() => {
+    localStorage.setItem("selectedSidebarIndex", selectDiv.toString());
+  }, [selectDiv]);
+
+  useEffect(() => {
+    // Determine selected sidebar item index based on current location
+    const selectedIndex = SideBarTypes.findIndex(
+      (item) => item.path === location.pathname
+    );
+    if (selectedIndex !== -1) {
+      setSelectDiv(selectedIndex);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="xl:w-72 p-5 flex flex-col gap-2 border-r-2 bg-primary-foreground/30 font-semibold text-lg">

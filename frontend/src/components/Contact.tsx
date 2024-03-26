@@ -23,7 +23,7 @@ const Contact = () => {
         <h1 className="flex gap-2 items-center">
           or <p className="font-mono text-lg">Fill the form</p>
         </h1>
-        <div className=" flex flex-col gap-4 my-2">
+        <div className=" flex flex-col gap-5 my-2">
           <div className="p-2 flex gap-2 text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
             <Star color="gold" fill="gold" size={40} />
             <p>
@@ -47,13 +47,13 @@ const Contact = () => {
         </div>
         <div className="mt-5">
           <a href="mailto:yashjaiswal2509@gmail.com">
-            <span className="flex text-lg items-center gap-2">
+            <span className="my-2 flex text-lg items-center gap-2">
               <MailIcon />
               yashjaiswal2509@gmail.com
             </span>
           </a>
           <a href="tel:+917851073155">
-            <span className="my-1 flex text-lg items-center gap-2">
+            <span className="my-2 flex text-lg items-center gap-2">
               <PhoneCall />
               +91 7851073155
             </span>
@@ -77,7 +77,7 @@ const Contact = () => {
           <input
             type="text"
             placeholder="Enter you name"
-            className=" outline-0 border-2 rounded-md p-2 dark:bg-gray-950"
+            className=" outline-0 border-2 rounded-md p-2 bg-gray-200 dark:bg-gray-950"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -87,7 +87,7 @@ const Contact = () => {
           <input
             type="text"
             placeholder="Enter you phone number"
-            className=" outline-0 border-2 rounded-md p-2 dark:bg-gray-950"
+            className=" outline-0 border-2 rounded-md p-2 bg-gray-200 dark:bg-gray-950"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -97,7 +97,7 @@ const Contact = () => {
           <input
             type="text"
             placeholder="E.g. Project"
-            className=" outline-0 border-2 rounded-md p-2 dark:bg-gray-950"
+            className=" outline-0 border-2 rounded-md p-2 bg-gray-200 dark:bg-gray-950"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -108,7 +108,7 @@ const Contact = () => {
             rows={8}
             placeholder="Enter your message/feedback"
             className=" outline-0 border-2
-            rounded-md p-2 dark:bg-gray-950"
+            rounded-md p-2 bg-gray-200 dark:bg-gray-950"
             style={{ resize: "none" }}
           ></textarea>
         </label>

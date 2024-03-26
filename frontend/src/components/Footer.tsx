@@ -9,13 +9,13 @@ const Footer = () => {
         <a href="https://github.com/Yash-jaiswal2509" target="_blank">
           <GithubIcon className="w-6 h-6 cursor-pointer hover:scale-125" />
         </a>
-        <a href="https://twitter.com/YashJaiswa50855">
+        <a href="https://twitter.com/YashJaiswa50855" target="_blank">
           <Twitter className="w-6 h-6 cursor-pointer hover:scale-125" />
         </a>
-        <a href="https://www.linkedin.com/in/yash-jaiswal-aaa8112ab">
+        <a href="https://www.linkedin.com/in/yash-jaiswal-aaa8112ab" target="_blank">
           <Linkedin className="w-6 h-6 cursor-pointer hover:scale-125" />
         </a>
-        <a href="https://www.instagram.com/yashja2509/">
+        <a href="https://www.instagram.com/yashja2509/" target="_blank">
           <Instagram className="w-6 h-6 cursor-pointer hover:scale-125" />
         </a>
       </div>
