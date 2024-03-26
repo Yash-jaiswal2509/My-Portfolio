@@ -1,19 +1,17 @@
-
 const svgToDataUri = require("mini-svg-data-uri");
- 
+
 const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
-
 /** @type {import('tailwindcss').Config} */
 export const darkMode = ["class"];
 export const content = [
-  './pages/**/*.{ts,tsx}',
-  './components/**/*.{ts,tsx}',
-  './app/**/*.{ts,tsx}',
-  './src/**/*.{ts,tsx}',
+  "./pages/**/*.{ts,tsx}",
+  "./components/**/*.{ts,tsx}",
+  "./app/**/*.{ts,tsx}",
+  "./src/**/*.{ts,tsx}",
 ];
 export const prefix = "";
 export const theme = {
@@ -26,7 +24,7 @@ export const theme = {
   },
   extend: {
     fontFamily: {
-      inter: ['"Inter"']
+      inter: ['"Inter"'],
     },
     colors: {
       border: "hsl(var(--border))",
@@ -77,14 +75,22 @@ export const theme = {
         from: { height: "var(--radix-accordion-content-height)" },
         to: { height: "0" },
       },
+      scroll: {
+        to: {
+          transform: "translate(calc(-50% - 0.5rem))",
+        },
+      },
     },
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
+      scroll:
+        "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
     },
   },
 };
 export const plugins = [
+  addVariablesForColors,
   require("tailwindcss-animate"),
   function ({ matchUtilities, theme }) {
     matchUtilities(
@@ -109,3 +115,14 @@ export const plugins = [
     );
   },
 ];
+
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
