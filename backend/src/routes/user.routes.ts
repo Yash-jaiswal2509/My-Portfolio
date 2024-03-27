@@ -16,6 +16,7 @@ router.post("/login", loginUser);
 //secured through middleware
 router.post("/logout", verifyJwt, logOutUser);
 
+//check for the user
 router.post("/refresh-token", refreshAccessToken);
 
 export default router;

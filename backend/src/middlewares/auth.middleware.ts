@@ -12,6 +12,7 @@ declare module 'express' {
     }
   }
 
+  
 export const verifyJwt = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     //provided cookie parser

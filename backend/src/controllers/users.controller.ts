@@ -193,13 +193,13 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       process.env.REFRESH_TOKEN_SECRET as Secret
     ) as JwtPayload;
 
-    const user = await User.findById(decodedToken?._id);
+    const verify = await User.findById(decodedToken?._id);
 
-    if (!user) {
+    if (!verify) {
       throw new apiError(401, "Invalid refresh token");
     }
 
-    if (incomingRefreshToken !== user?.refreshToken) {
+    if (incomingRefreshToken !== verify?.refreshToken) {
       throw new apiError(401, "Refresh token is expired or used");
     }
 
@@ -210,8 +210,9 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
 
     //asigning in objects property
     const { accessToken, refreshToken: newRefreshtoken } =
-      await generateAccessAndRefreshTokens(user?._id);
+      await generateAccessAndRefreshTokens(verify?._id);
 
+    const user = await User.findById(verify?._id);
     res
       .status(200)
       .cookie("accessToken", accessToken, options)
@@ -219,8 +220,8 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       .json(
         new apiResponse(
           200,
-          { accessToken, newRefreshtoken },
-          "Access taken refreshed"
+          { accessToken, newRefreshtoken, user },
+          "Access token refreshed"
         )
       );
   } catch (error) {

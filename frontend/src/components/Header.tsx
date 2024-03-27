@@ -3,8 +3,10 @@ import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../AuthProvider";
 
 const Header = () => {
+  const { isLoggedIn } = useAuth();
   return (
     <div className="p-5 h-20 flex items-center justify-between shadow-sm shadow-gray-300 dark:shadow-slate-500 bg-gray-400/10">
       <div className=" px-2 flex items-center gap-3 cursor-pointer">
@@ -19,12 +21,21 @@ const Header = () => {
       <div></div>
       <div className="flex hover:opacity-95">
         <ModeToggle />
-        <Link to="/login">
-          <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
-            Login
-            <ArrowRight className="ml-1" />
-          </Button>
-        </Link>
+        {isLoggedIn ? (
+          <Link to="/logout">
+            <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
+              Log Out
+              <ArrowRight className="ml-1" />
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
+              Login
+              <ArrowRight className="ml-1" />
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

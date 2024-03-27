@@ -5,7 +5,7 @@ export const TechStackTypes = [
   { tech: "Figma", icon: <StackIcon name="figma" className="h-5 w-5" /> },
   { tech: "Java", icon: <StackIcon name="java" className="h-5 w-5" /> },
   { tech: "MongoDB", icon: <StackIcon name="mongodb" className="h-5 w-5" /> },
-  { tech: "Express.js", icon: <StackIcon name="expressjs" className="h-5 w-5" /> },
+  { tech: "Express.js", icon: "" },
   { tech: "Node.js", icon: <StackIcon name="nodejs" className="h-5 w-5" /> },
   { tech: "React.js", icon: <StackIcon name="reactjs" className="h-5 w-5" /> },
   { tech: "JavaScript", icon: <StackIcon name="js" className="h-5 w-5" /> },

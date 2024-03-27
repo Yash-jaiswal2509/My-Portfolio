@@ -14,9 +14,8 @@ export interface UserDocument extends Document {
 }
 
 export type ProjectType = {
-  _id: string;
-  projectName: string;
+  userId: string;
+  title: string;
   description: string;
-  video: string;
-  image: string;
+  imageUrls: string;
 };

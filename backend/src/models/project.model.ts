@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
-import mongooseAggregatePagonate from "mongoose-aggregate-paginate-v2"
+import { ProjectType } from "../shared/types";
 
-
-const projectSchema = new mongoose.Schema(
-    {
-        title: { type: String, required: true },
-        description: { type: String, },
-        video: { type: String, },//Cloudinary
-        image: { type: String, required: true }
-    },
-    {
-        timestamps: true
-    }
+const projectSchema = new mongoose.Schema<ProjectType>(
+  {
+    userId: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    imageUrls: { type: String },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-export const Project = mongoose.model("Projects", projectSchema);
+export const Project = mongoose.model<ProjectType>("Projects", projectSchema);

@@ -6,8 +6,8 @@ const TechStack = () => {
     <div className=" flex rounded-lg flex-col items-center justify-center">
       <InfiniteMovingCards
         items={TechStackTypes}
-        direction="right"
-        speed="normal"
+        direction="left"
+        speed="fast"
       />
     </div>
   );

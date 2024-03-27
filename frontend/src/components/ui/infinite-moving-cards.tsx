@@ -71,7 +71,7 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller w-[80vw] mx-10 [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
