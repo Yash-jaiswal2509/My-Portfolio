@@ -15,19 +15,14 @@ export const register = async (formData: FormData) => {
 };
 
 export const validateToken = async () => {
-  try {
-    const response = await axios.get("api/v1/users/refresh-token", {
-      withCredentials: true,
-    });
+  const response = await axios.get("api/v1/users/protected-route", {
+    withCredentials: true,
+  });
 
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      throw new Error(`Request failed with status: ${response.status}`);
-    }
-  } catch (error) {
-    throw new Error("Invalid Token");
+  if (response) {
+    throw new Error("Something went wrong in fetching user details");
   }
+  return response;
 };
 
 export const login = async (data: LoginFormData) => {

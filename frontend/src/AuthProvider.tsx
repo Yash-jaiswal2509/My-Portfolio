@@ -1,33 +1,26 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useState,
-  useEffect,
-  useContext,
-} from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../src/api-client";
 
-type AuthProviderProps = PropsWithChildren<{
+type AuthProviderProps = {
   isLoggedIn?: boolean;
-}>;
+};
 
-const AuthContext = createContext<{ isLoggedIn: boolean }>({
-  isLoggedIn: false,
-});
+const AuthContext = createContext<AuthProviderProps | undefined>(undefined);
 
 export default function AuthProvider({
   children,
-  isLoggedIn: initialLoggedInState = false,
-}: AuthProviderProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(initialLoggedInState);
-
+}: {
+  children: React.ReactNode;
+}) {
   const { data, isError, isSuccess } = useQuery({
     queryKey: ["validateToken"],
     queryFn: ApiClient.validateToken,
     retry: false,
   });
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   useEffect(() => {
     if (isSuccess && data) {
       setIsLoggedIn(true);

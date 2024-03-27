@@ -22,12 +22,10 @@ const Header = () => {
       <div className="flex hover:opacity-95">
         <ModeToggle />
         {isLoggedIn ? (
-          <Link to="/logout">
-            <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
-              Log Out
-              <ArrowRight className="ml-1" />
-            </Button>
-          </Link>
+          <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
+            Log Out
+            <ArrowRight className="ml-1" />
+          </Button>
         ) : (
           <Link to="/login">
             <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>

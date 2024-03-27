@@ -178,6 +178,7 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
     .json(new apiResponse(200, {}, "User logged out"));
 });
 
+
 //refreshing token
 const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
   try {
@@ -193,15 +194,15 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       process.env.REFRESH_TOKEN_SECRET as Secret
     ) as JwtPayload;
 
-    const verify = await User.findById(decodedToken?._id);
-
-    if (!verify) {
+    const user = await User.findById(decodedToken?._id);
+    if (!user) {
       throw new apiError(401, "Invalid refresh token");
     }
 
-    if (incomingRefreshToken !== verify?.refreshToken) {
+    if (incomingRefreshToken !== user?.refreshToken) {
       throw new apiError(401, "Refresh token is expired or used");
     }
+    const userId = user?._id;
 
     const options = {
       httpOnly: true,
@@ -210,9 +211,8 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
 
     //asigning in objects property
     const { accessToken, refreshToken: newRefreshtoken } =
-      await generateAccessAndRefreshTokens(verify?._id);
+      await generateAccessAndRefreshTokens(user?._id);
 
-    const user = await User.findById(verify?._id);
     res
       .status(200)
       .cookie("accessToken", accessToken, options)
@@ -220,7 +220,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       .json(
         new apiResponse(
           200,
-          { accessToken, newRefreshtoken, user },
+          { accessToken, newRefreshtoken, userId },
           "Access token refreshed"
         )
       );
