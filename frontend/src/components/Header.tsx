@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
+import LogOutButton from "./LogOutButton";
 
 const Header = () => {
   const { isLoggedIn } = useAuth();
@@ -22,10 +23,7 @@ const Header = () => {
       <div className="flex hover:opacity-95">
         <ModeToggle />
         {isLoggedIn ? (
-          <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
-            Log Out
-            <ArrowRight className="ml-1" />
-          </Button>
+          <LogOutButton />
         ) : (
           <Link to="/login">
             <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>

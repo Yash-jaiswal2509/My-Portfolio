@@ -15,14 +15,19 @@ export const register = async (formData: FormData) => {
 };
 
 export const validateToken = async () => {
-  const response = await axios.get("api/v1/users/protected-route", {
-    withCredentials: true,
-  });
+  try {
+    const response = await axios.post("api/v1/users/protected-route", {
+      withCredentials: true,
+    });
 
-  if (response) {
-    throw new Error("Something went wrong in fetching user details");
+    if (response.status !== 200) {
+      throw new Error("Something went wrong in fetching user details");
+    }
+
+    return response;
+  } catch (error) {
+    throw new Error("Error in fetching user details: " + error);
   }
-  return response;
 };
 
 export const login = async (data: LoginFormData) => {
@@ -35,3 +40,7 @@ export const login = async (data: LoginFormData) => {
     .then((res) => console.log(res.data))
     .catch((error: Error) => console.error(error));
 };
+
+export const logout = async()=>{
+  await axios.post("api/v1/users/logout")
+}

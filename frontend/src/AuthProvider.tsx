@@ -2,7 +2,7 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../src/api-client";
 
-type AuthProviderProps = {
+type AuthProviderProps =  {
   isLoggedIn?: boolean;
 };
 
@@ -13,14 +13,14 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { data, isError, isSuccess } = useQuery({
+  const { data, isError, isSuccess, error } = useQuery({
     queryKey: ["validateToken"],
     queryFn: ApiClient.validateToken,
     retry: false,
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
   useEffect(() => {
     if (isSuccess && data) {
       setIsLoggedIn(true);
@@ -31,7 +31,7 @@ export default function AuthProvider({
     if (isError) {
       setIsLoggedIn(false);
     }
-  }, [isError]);
+  }, [isError, error]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn }}>
@@ -40,7 +40,7 @@ export default function AuthProvider({
   );
 }
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
 
   if (context === undefined) {
@@ -48,4 +48,4 @@ export const useAuth = () => {
   }
 
   return context;
-};
+}
