@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
           <App />
-          <Toaster position="top-right" />
+          <Toaster position="top-right" className="text-lg font-mono" />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>

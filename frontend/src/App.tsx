@@ -36,9 +36,7 @@ function App() {
               path="/projects"
               element={
                 <Layout>
-                  <AuthProvider>
-                    <Projects />
-                  </AuthProvider>
+                  <Projects />
                 </Layout>
               }
             />

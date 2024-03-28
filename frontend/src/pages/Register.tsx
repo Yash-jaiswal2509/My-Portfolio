@@ -39,11 +39,15 @@ const Register = () => {
   const mutation = useMutation({
     mutationFn: ApiClient.register,
     onSuccess: () => {
-      toast("Successfully Registered!!");
+      toast("Successfully Registered!!", {
+        closeButton: true,
+      });
       navigate("/");
     },
     onError: (errors) => {
-      toast(`${errors.message}`);
+      toast(`${errors.message}`, {
+        closeButton: true,
+      });
     },
   });
 

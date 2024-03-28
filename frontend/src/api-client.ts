@@ -31,16 +31,29 @@ export const validateToken = async () => {
 };
 
 export const login = async (data: LoginFormData) => {
-  await axios
-    .post("api/v1/users/login", data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => console.log(res.data))
-    .catch((error: Error) => console.error(error));
+  const response = await axios.post("api/v1/users/login", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return response;
 };
 
-export const logout = async()=>{
-  await axios.post("api/v1/users/logout")
-}
+export const logout = async () => {
+  await axios.post("api/v1/users/logout");
+};
+
+export const validateAdmin = async () => {
+  try {
+    const response = await axios.post("api/v1/users/admin-token");
+
+    if (response.status !== 200) {
+      throw new Error("Something went wrong");
+    }
+
+    return response;
+  } catch (error) {
+    throw new Error("Error in fetching admin details");
+  }
+};

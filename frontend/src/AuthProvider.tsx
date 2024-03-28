@@ -1,40 +1,60 @@
+// AuthProvider.tsx
 import { createContext, useState, useEffect, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../src/api-client";
 
-type AuthProviderProps =  {
-  isLoggedIn?: boolean;
+type AuthProviderProps = {
+  isLoggedIn: boolean;
+  isAdmin: boolean;
 };
 
-const AuthContext = createContext<AuthProviderProps | undefined>(undefined);
+const AuthContext = createContext<AuthProviderProps>({
+  isLoggedIn: false,
+  isAdmin: false,
+});
 
-export default function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { data, isError, isSuccess, error } = useQuery({
+export default function AuthProvider({ children }: { children: React.ReactNode; }) {
+  const { data: userData, isError: userIsError, isSuccess: userSuccess } = useQuery({
     queryKey: ["validateToken"],
     queryFn: ApiClient.validateToken,
     retry: false,
   });
 
+  const { data: adminData, isError: adminIsError, isSuccess: adminSuccess } = useQuery({
+    queryKey: ["validateAdmin"],
+    queryFn: ApiClient.validateAdmin,
+    retry: false,
+  });
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (userSuccess && userData) {
       setIsLoggedIn(true);
     }
-  }, [isSuccess, data]);
+  }, [userSuccess, userData]);
 
   useEffect(() => {
-    if (isError) {
+    if (userIsError) {
       setIsLoggedIn(false);
     }
-  }, [isError, error]);
+  }, [userIsError]);
+
+  useEffect(() => {
+    if (adminSuccess && adminData) {
+      setIsAdmin(true);
+    }
+  }, [adminSuccess, adminData]);
+
+  useEffect(() => {
+    if (adminIsError) {
+      setIsAdmin(false);
+    }
+  }, [adminIsError]);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
@@ -43,7 +63,7 @@ export default function AuthProvider({
 export function useAuth() {
   const context = useContext(AuthContext);
 
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used with an AuthProvider");
   }
 

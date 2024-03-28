@@ -35,7 +35,9 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: ApiClient.login,
     onSuccess: () => {
-      toast("Logged In Successfully");
+      toast("Logged In Successfully", {
+        closeButton: true,
+      });
       navigate("/");
       reset;
     },

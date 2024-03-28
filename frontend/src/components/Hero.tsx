@@ -104,22 +104,22 @@ const Hero = () => {
           )}
         </span>
         <div className="text-left text-nowrap text-sm flex flex-col gap-1">
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800">
             Name: Yash Jaiswal
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800">
             Degree: Bachelor of Technology
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
             College:<p> Sardar Vallabhbhai National Institute of Technology</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
             Interests:<p> Coding, programming and web development</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800">
             Email: yashjaiswal2509@gmail.com
           </h1>
-          <div className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex flex-col gap-2">
+          <div className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex flex-col gap-2">
             <p className=" text-xl text-center">Summary</p>
             <p className="text-wrap text-center">
               I'm a Fullstack Developer specializing in the MERN Stack, adeptly

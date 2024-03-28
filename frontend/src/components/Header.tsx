@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 import LogOutButton from "./LogOutButton";
 
 const Header = () => {
   const { isLoggedIn } = useAuth();
+
   return (
     <div className="p-5 h-20 flex items-center justify-between shadow-sm shadow-gray-300 dark:shadow-slate-500 bg-gray-400/10">
       <div className=" px-2 flex items-center gap-3 cursor-pointer">
@@ -27,8 +28,7 @@ const Header = () => {
         ) : (
           <Link to="/login">
             <Button className={cn("mx-4 text-lg font-bold  hover:shadow-lg")}>
-              Login
-              <ArrowRight className="ml-1" />
+              Login <LogIn className="ml-1" />
             </Button>
           </Link>
         )}

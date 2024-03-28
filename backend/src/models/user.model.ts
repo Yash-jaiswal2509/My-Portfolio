@@ -8,7 +8,7 @@ interface UserModel extends Model<UserDocument> {}
 const userSchema = new mongoose.Schema<UserDocument, UserModel>(
   {
     fullName: { type: String, require: true },
-    username: { type: String, require: true },
+    username: { type: String, require: true, unique: true },
     email: { type: String, required: true },
     password: { type: String, required: [true, "Password is required"] },
     coverImage: { type: String, reqruied: true },

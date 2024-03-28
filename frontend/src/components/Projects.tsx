@@ -1,6 +1,14 @@
+// import { useAuth } from "@/AuthProvider";
 import TechStack from "./TechStack";
+// import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 const Projects = () => {
+  // const { isLoggedIn } = useAuth();
+  // const navigate = useNavigate();
+
+
+
   return (
     <div className="overflow-hidden flex flex-col">
       <TechStack />

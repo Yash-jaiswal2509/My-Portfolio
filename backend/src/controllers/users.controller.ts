@@ -164,7 +164,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
     }
   );
 
-  console.log(loggedOutUser);
 
   const options = {
     httpOnly: true,
