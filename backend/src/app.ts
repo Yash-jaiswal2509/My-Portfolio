@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes";
+import projectRouter from "./routes/project.routes";
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.get("/health", async (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/projects", projectRouter);
 
 export { app };

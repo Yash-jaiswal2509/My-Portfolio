@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema<UserDocument, UserModel>(
     username: { type: String, require: true, unique: true },
     email: { type: String, required: true },
     password: { type: String, required: [true, "Password is required"] },
-    coverImage: { type: String, reqruied: true },
+    coverImage: [{ type: String, required: true }],
     refreshToken: { type: String },
   },
   {

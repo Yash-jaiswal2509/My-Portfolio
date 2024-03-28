@@ -10,7 +10,7 @@ import { verifyJwt } from "../middlewares/auth.middleware";
 import { verifyAdmin } from "../middlewares/admin.middleware";
 
 const router = Router();
-router.post("/register", upload.single("coverImage"), registerUser);
+router.post("/register", upload.array("coverImage"), registerUser);
 
 router.post("/login", loginUser);
 

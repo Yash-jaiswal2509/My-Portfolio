@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { createProject } from "../controllers/projects.controller";
+import { addProject } from "../controllers/projects.controller";
 import { upload } from "../middlewares/multer.middleware";
 
 const router = Router();
 
-router.post(
-  "/projects",
-  upload.array("imageFiles"),
-  createProject
-);
+router.post("/add-projects", upload.array("projectImages"), addProject);
+
+export default router;

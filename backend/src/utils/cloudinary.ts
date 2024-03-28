@@ -8,20 +8,27 @@ cloudinary.config({
   secure: true,
 });
 
-const uploadToCloudinary = async (localFilePath: Express.Multer.File) => {
+const uploadToCloudinary = async (localFilePaths: Express.Multer.File[]) => {
   try {
-    if (!localFilePath) return null;
-    //upload the file on cloudinary
-    const response = await cloudinary.uploader.upload(localFilePath.path, {
-      resource_type: "auto",
-      folder: "portfolio-images"
-    });
-    // file has been uploaded successfull
-    fs.unlinkSync(localFilePath.path);
-    return response;
+    if (!localFilePaths || localFilePaths.length === 0) return null;
+
+    const responses = await Promise.all(
+      localFilePaths.map(async (file) => {
+        const response = await cloudinary.uploader.upload(file.path, {
+          resource_type: "auto",
+          folder: "portfolio-images"
+        });
+        fs.unlinkSync(file.path);
+        return response;
+      })
+    );
+
+    return responses;
   } catch (error) {
-    // removes the locally saved temporary file as the upload operation got failed
-    fs.unlinkSync(localFilePath.path);
+    
+    localFilePaths.forEach((file) => {
+      fs.unlinkSync(file.path);
+    });
     return null;
   }
 };

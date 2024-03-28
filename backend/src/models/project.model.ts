@@ -3,10 +3,9 @@ import { ProjectType } from "../shared/types";
 
 const projectSchema = new mongoose.Schema<ProjectType>(
   {
-    userId: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    imageUrls: { type: String },
+    projectImages: [{ type: String, required: true }],
   },
   {
     timestamps: true,

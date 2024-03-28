@@ -55,19 +55,26 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   }
 
   //Taking a cover-image, when registering
-  const coverImageLocalPath = req.file;
+  const coverImageLocalPath = req.files as Express.Multer.File[];
+  console.log(coverImageLocalPath);
 
   if (!coverImageLocalPath) {
     throw new apiError(400, "Cover image is required");
   }
 
   //uploading it to cloudinary
-  const coverIamge = await uploadToCloudinary(coverImageLocalPath);
+  const coverImages = await uploadToCloudinary(coverImageLocalPath);
+  console.log(coverImages);
+
+  if (!coverImages) {
+    throw new apiError(500, "Failed to upload cover image(s)");
+  }
+  const coverImageUrls = coverImages.map((image) => image.url);
 
   //creating a user by taking input from req.body and req.file
   const user = await User.create({
     fullName,
-    coverImage: coverIamge?.url,
+    coverImage: coverImageUrls,
     email,
     password,
     username: username.toLowerCase(),
@@ -164,7 +171,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
     }
   );
 
-
   const options = {
     httpOnly: true,
     secure: true,
@@ -176,7 +182,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
     .clearCookie("refreshToken", options)
     .json(new apiResponse(200, {}, "User logged out"));
 });
-
 
 //refreshing token
 const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
