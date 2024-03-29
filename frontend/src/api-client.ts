@@ -3,7 +3,7 @@ import { LoginFormData } from "./pages/Login";
 
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
-  await axios
+  const response = await axios
     .post("api/v1/users/register", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -12,6 +12,8 @@ export const register = async (formData: FormData) => {
     })
     .then((res) => console.log(res.data))
     .catch((error: Error) => console.error(error));
+
+  return response;
 };
 
 export const validateToken = async () => {
@@ -31,29 +33,44 @@ export const validateToken = async () => {
 };
 
 export const login = async (data: LoginFormData) => {
-  const response = await axios.post("api/v1/users/login", data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await axios
+    .post("api/v1/users/login", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .catch((error) => console.error(error));
 
   return response;
 };
 
 export const logout = async () => {
-  await axios.post("api/v1/users/logout");
+  const response = await axios.post("api/v1/users/logout").catch((error) => {
+    console.error(error);
+  });
+
+  return response;
 };
 
-export const validateAdmin = async () => {
-  try {
-    const response = await axios.post("api/v1/users/admin-token");
+export const addProject = async (formData: FormData) => {
+  const response = await axios
+    .post("api/v1/projects/add-project", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    })
+    .catch((error: Error) => console.error(error));
 
-    if (response.status !== 200) {
-      throw new Error("Something went wrong");
-    }
+  return response;
+};
 
-    return response;
-  } catch (error) {
-    throw new Error("Error in fetching admin details");
-  }
+export const fetchProjects = async () => {
+  const response = axios
+    .get("api/v1/projects", {
+      withCredentials: true,
+    })
+    .catch((error) => console.error(error));
+
+  return response;
 };

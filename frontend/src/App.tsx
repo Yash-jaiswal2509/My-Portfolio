@@ -7,6 +7,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import AuthProvider from "./AuthProvider.tsx";
+import AddProject from "./pages/Add-project.tsx";
 
 function App() {
   return (
@@ -45,6 +46,14 @@ function App() {
               element={
                 <Layout>
                   <Contact />
+                </Layout>
+              }
+            />
+            <Route
+              path="/add-project"
+              element={
+                <Layout>
+                  <AddProject />
                 </Layout>
               }
             />

@@ -16,5 +16,5 @@ export interface UserDocument extends Document {
 export type ProjectType = {
   title: string;
   description: string;
-  projectImages: string;
+  projectImages: string[];
 };

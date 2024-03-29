@@ -51,3 +51,18 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
     .status(201)
     .json(new apiResponse(200, createdProject, "Project added successfully"));
 });
+
+
+export const fetchProjects = asyncHandler(
+  async (req: Request, res: Response) => {
+    const projects = await Project.find();
+
+    if (!projects) {
+      throw new Error("Not able to fetch the projects");
+    }
+
+    res
+      .status(201)
+      .json(new apiResponse(200, projects, "Projecs fetched succesfully"));
+  }
+);

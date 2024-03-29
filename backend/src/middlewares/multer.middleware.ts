@@ -1,4 +1,3 @@
-import { error } from "console";
 import { Request } from "express";
 import multer from "multer";
 
