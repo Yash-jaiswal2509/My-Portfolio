@@ -6,8 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api":
-        "http://localhost:8000" ||
-        "https://my-portfolio-backend-six.vercel.app/",
+        "https://my-portfolio-backend-git-main-yash-jaiswals-projects.vercel.app/",
     },
   },
   plugins: [react()],
