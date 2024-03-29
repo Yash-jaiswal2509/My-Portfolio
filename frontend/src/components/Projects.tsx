@@ -34,6 +34,10 @@ const Projects = () => {
     retry: false,
   });
 
+  if (!ProjectsData) {
+    throw new Error("No projects data fetched");
+  }
+  
   if (isError) {
     throw new Error("Something went wrong while fetching projects");
   }
