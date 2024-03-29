@@ -27,20 +27,12 @@ const Projects = () => {
   const {
     data: ProjectsData,
     isFetching,
-    isError,
   } = useQuery({
     queryKey: ["fetchProjects"],
     queryFn: ApiClient.fetchProjects,
     retry: false,
   });
 
-  if (!ProjectsData) {
-    throw new Error("No projects data fetched");
-  }
-  
-  if (isError) {
-    throw new Error("Something went wrong while fetching projects");
-  }
 
   return (
     <div className="overflow-hidden flex flex-col w-fit">
