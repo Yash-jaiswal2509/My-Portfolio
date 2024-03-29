@@ -28,8 +28,9 @@ const LogOutButton = () => {
 
   return (
     <Button
+    variant="outline"
       onClick={handleClick}
-      className="mx-4 text-lg font-bold  hover:shadow-lg"
+      className="mx-4 text-lg font-bold  hover:shadow-lg hidden sm:flex bg-white dark:bg-slate-900"
     >
       Log out <LogOut className="ml-2" size={22} />
     </Button>

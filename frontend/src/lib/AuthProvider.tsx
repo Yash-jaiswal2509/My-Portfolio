@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import * as ApiClient from "../src/api-client";
+import * as ApiClient from "../api-client";
 
 type AuthContextProps = {
   isLoggedIn: boolean;

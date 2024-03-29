@@ -4,11 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  //To get the location of the clicked type by pathname
   const location = useLocation();
   const [selectDiv, setSelectDiv] = useState(0);
 
-  //read from local storage on component mount
   useEffect(() => {
     const storedIndex = localStorage.getItem("selectedSidebarIndex");
     if (storedIndex !== null) {
@@ -16,13 +14,13 @@ const Sidebar = () => {
     }
   }, []);
 
-  //update local storage when selected sidebar item changes
+  //update local storage whenever selected sidebar item changes
   useEffect(() => {
     localStorage.setItem("selectedSidebarIndex", selectDiv.toString());
   }, [selectDiv]);
 
   useEffect(() => {
-    // Determine selected sidebar item index based on current location
+    // here it selects sidebar item index based on current location
     const selectedIndex = SideBarTypes.findIndex(
       (item) => item.path === location.pathname
     );
@@ -32,7 +30,7 @@ const Sidebar = () => {
   }, [location.pathname]);
 
   return (
-    <div className="xl:w-72 p-5 flex flex-col gap-2 border-r-2 bg-primary-foreground/30 font-semibold text-lg">
+    <div className="lg:w-80 p-5 hidden sm:flex flex-col gap-2 border-r-2 bg-primary-foreground/30 font-semibold text-lg">
       {SideBarTypes.map((items, index) => (
         <div
           className={`p-3 flex gap-3 items-center hover:translate-x-2 hover:underline hover:bg-primary/10 rounded-lg cursor-pointer ${
@@ -45,7 +43,7 @@ const Sidebar = () => {
           }}
         >
           <items.icon />
-          <button className="hidden xl:block">{items.name}</button>
+          <button className="hidden lg:block">{items.name}</button>
         </div>
       ))}
     </div>

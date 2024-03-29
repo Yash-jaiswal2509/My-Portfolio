@@ -9,36 +9,36 @@ import { Button } from "./ui/button";
 
 const Contact = () => {
   return (
-    <div className=" flex p-5 gap-2 flex-1">
-      <div className="p-10 w-full bg-gray-400/10 dark:bg-gray-900/60 rounded-xl shadow-md dark:shadow-white/20">
-        <h1 className="flex mb-1 items-center text-6xl font-semibold">
+    <div className=" flex lg:flex-row flex-col p-2 sm:p-5 gap-2 flex-1">
+      <div className="sm:p-10 p-2 w-full bg-gray-400/10 dark:bg-gray-900/60 rounded-xl shadow-md dark:shadow-white/20">
+        <h1 className="flex mb-1 items-center text-4xl sm:text-6xl font-semibold">
           Hi
-          <p className="text-3xl">✋🏻</p>
-          <p className="text-xl italic underline">Let's Get in Touch</p>
+          <p className="sm:text-3xl text-xl">✋🏻</p>
+          <p className="sm:text-xl text-base italic underline">Let's Get in Touch</p>
         </h1>
-        <h1 className="text-3xl flex items-end gap-1 font-semibold my-1">
+        <h1 className="sm:text-3xl text-xl flex items-end gap-1 font-semibold my-1">
           Reach directly
-          <ArrowDownIcon size={32} strokeWidth={3} />
+          <ArrowDownIcon className=" sm:w-8 w-6 sm:h-8 h-6" strokeWidth={3} />
         </h1>
         <h1 className="flex gap-2 items-center">
           or <p className="font-mono text-lg">Fill the form</p>
         </h1>
         <div className=" flex flex-col gap-5 my-2">
-          <div className="p-2 flex gap-2 text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
+          <div className="p-2 flex gap-2 text-base lg:text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
             <Star color="gold" fill="gold" size={40} />
             <p>
               Please!!, reach out to discuss interviews or potential
               collaborations your inquiries will receive swift attention.
             </p>
           </div>
-          <div className="p-2 flex gap-2 text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
+          <div className="p-2 flex gap-2 text-base lg:text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
             <Star color="gold" fill="gold" size={40} />
             <p>
               If you want to share your thoughts and inquiries contact via the
               form, your feedback is essential.
             </p>
           </div>
-          <div className="p-2 flex gap-2 text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
+          <div className="p-2 flex gap-2 text-base lg:text-lg bg-gray-400/20 dark:bg-slate-700 rounded-md dark:hover:bg-slate-800">
             <Star color="gold" fill="gold" size={40} />
             <p>
               I balance collaboration and independent work effectively when needed, while working autonomously to meet goals.
@@ -60,13 +60,14 @@ const Contact = () => {
           </a>
         </div>
       </div>
+      
       <span className=" h-full flex flex-col items-center">
         <span className="w-[2px] h-full bg-gray-500 rounded-full"></span>
         or
         <span className="w-[2px] h-full bg-gray-500 rounded-full"></span>
       </span>
 
-      <div className="p-8 w-full flex flex-col gap-1 bg-gray-400/10 dark:bg-gray-900/60 rounded-xl shadow-md dark:shadow-white/20">
+      <div className="sm:p-8 p-4 w-full flex flex-col gap-1 bg-gray-400/10 dark:bg-gray-900/60 rounded-xl shadow-md dark:shadow-white/20">
         <h1 className="text-4xl text-nowrap text-center font-semibold ">
           Form
         </h1>

@@ -22,4 +22,7 @@ const storage = multer.diskStorage({
 initialized multer:-
 generates a middleware for storing files temporary before uploading it to the cloudinary 
 */
-export const upload = multer({ storage: storage });
+export const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+});

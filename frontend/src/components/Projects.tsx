@@ -2,7 +2,7 @@ import { ProjectType } from "../../../backend/src/shared/types";
 import { PlusCircle } from "lucide-react";
 import TechStack from "./TechStack";
 import { Button } from "./ui/button";
-import { useAuth } from "../AuthProvider";
+import { useAuth } from "../lib/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../api-client";
@@ -12,6 +12,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Projects = () => {
   const { isAdmin } = useAuth();
@@ -33,9 +34,9 @@ const Projects = () => {
   }
 
   return (
-    <div className="overflow-hidden flex flex-col">
+    <div className="overflow-hidden flex flex-col w-fit">
       <TechStack />
-      <div className=" flex flex-col p-5 ">
+      <div className=" flex flex-col p-2 sm:p-5 ">
         {isAdmin ? (
           <Button
             variant="secondary"
@@ -48,47 +49,65 @@ const Projects = () => {
           <></>
         )}
 
-        <div className="p-5 w-full grid grid-cols-2 gap-6">
-          {ProjectsData?.data.data.map(
-            (project: ProjectType, index: number) => {
+        {isFetching ? (
+          <div className="px-1 py-4 sm:py-0 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[1, 2, 3, 4].map((index) => {
               return (
                 <div
                   key={index}
-                  className="p-4 flex flex-col gap-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-xl shadow-md dark:shadow-white/20 border-2 border-white/10"
+                  className="p-2 sm:p-4 flex flex-col gap-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl shadow-md dark:shadow-white/20"
                 >
-                  <Carousel
-                    className="shadow-lg dark:shadow-white/20 rounded-xl overflow-hidden"
-                    plugins={[
-                      Autoplay({
-                        delay: 4000,
-                      }),
-                    ]}
-                  >
-                    <CarouselContent>
-                      {project.projectImages.map(
-                        (image: string, index: number) => (
-                          <CarouselItem key={index}>
-                            <img src={image} className=" h-56 w-full " />
-                          </CarouselItem>
-                        )
-                      )}
-                    </CarouselContent>
-                  </Carousel>
-                  <h1 className="text-2xl font-semibold mt-2">
-                    {project.title}
-                  </h1>
-                  <p className="italic -mt-2">{project.description}</p>
-                  <Button
-                    variant="outline"
-                    className=" w-full text-lg font-semibold hover:underline"
-                  >
-                    View More
-                  </Button>
+                  <Skeleton className="w-full h-52" />
+                  <Skeleton className="w-full h-10" />
+                  <Skeleton className="w-full h-10" />
+                  <Skeleton className="w-full h-10" />
                 </div>
               );
-            }
-          )}
-        </div>
+            })}
+          </div>
+        ) : (
+          <div className="px-1 py-4 sm:py-0 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {ProjectsData?.data.data.map(
+              (project: ProjectType, index: number) => {
+                return (
+                  <div
+                    key={index}
+                    className="p-2 sm:p-4 flex flex-col gap-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl shadow-md dark:shadow-white/20 border-2 border-white/10"
+                  >
+                    <Carousel
+                      className="shadow-lg dark:shadow-white/20 rounded-md sm:rounded-xl overflow-hidden"
+                      plugins={[
+                        Autoplay({
+                          delay: 4000,
+                        }),
+                      ]}
+                    >
+                      <CarouselContent>
+                        {project.projectImages.map(
+                          (image: string, index: number) => (
+                            <CarouselItem key={index}>
+                              <img src={image} className=" h-56 w-full " />
+                            </CarouselItem>
+                          )
+                        )}
+                      </CarouselContent>
+                    </Carousel>
+                    <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-2">
+                      {project.title}
+                    </h1>
+                    <p className="italic px-2 sm:px-4">{project.description}</p>
+                    <Button
+                      variant="outline"
+                      className=" w-full text-sm lg:text-lg font-semibold hover:underline"
+                    >
+                      View More
+                    </Button>
+                  </div>
+                );
+              }
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

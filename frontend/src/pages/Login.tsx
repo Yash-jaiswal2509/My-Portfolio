@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
-      <div className="h-full relative w-full flex flex-col justify-center overflow-hidden rounded-xl border-4 border-gray-100 dark:border-gray-800">
+      <div className="h-full relative w-full flex flex-col justify-center overflow-hidden rounded-xl">
         <div className="w-full absolute inset-0 h-full">
           <SparklesCore
             id="tsparticlesfullpage"
@@ -61,15 +61,15 @@ const Login = () => {
             particleColor={toggleParColor}
           />
         </div>
-        <div className="z-20 relative px-40 py-10 flex flex-col">
+        <div className="z-20 relative px-4 sm:px-20 md:px-40 py-10 flex flex-col">
           <div className=" flex flex-row">
             <div className=" w-full font-mono">
-              <BackgroundGradient className="rounded-[22px] flex flex-col gap-4 items-center px-12 py-8 bg-white dark:bg-zinc-900">
+              <BackgroundGradient className="rounded-[22px] flex flex-col gap-4 items-center px-4 sm:px-12 py-8 bg-white dark:bg-zinc-900">
                 <Link to="/">
                   <LogOutIcon size={30} className="mb-5" />
                 </Link>
                 <h1 className="text-4xl font-bold">Login</h1>
-                <p className="text-lg font-semibold">
+                <p className="text-xs sm:text-lg font-semibold">
                   Login to explore the projects...
                 </p>
                 <form
@@ -89,7 +89,7 @@ const Login = () => {
                       })}
                     />
                     {errors.email && (
-                      <span className="text-red-600 text-md">
+                      <span className="text-red-600 text-base">
                         {errors.email.message}
                       </span>
                     )}
@@ -110,7 +110,7 @@ const Login = () => {
                       Forgot password?
                     </span>
                     {errors.password && (
-                      <span className="text-red-600 text-md">
+                      <span className="text-red-600 text-base">
                         {errors.password.message}
                       </span>
                     )}
@@ -123,8 +123,8 @@ const Login = () => {
                     {mutation.isPending ? "Loggin In..." : "Log in"}
                   </Button>
                 </form>
-                <span>
-                  Don't have an account?{" "}
+                <span className=" text-sm flex flex-col items-center  sm:flex-row sm:gap-2">
+                  Don't have an account?
                   <Link to="/register">
                     <span className=" text-cyan-700 hover:text-cyan-800 underline cursor-pointer">
                       Create Account

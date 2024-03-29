@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import AuthProvider from "./AuthProvider.tsx";
+import AuthProvider from "./lib/AuthProvider.tsx";
 import AddProject from "./pages/Add-project.tsx";
 
 function App() {

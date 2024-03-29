@@ -37,9 +37,9 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="w-full h-full p-5 flex gap-5 flex-1">
+    <div className="w-full h-full p-2 sm:p-5 flex xl:flex-row flex-col gap-5 flex-1">
       <div className="flex w-full flex-col gap-5">
-        <div className="flex gap-5">
+        <div className="flex gap-5 md:flex-row flex-col">
           <div className="p-10 flex flex-col gap-5 items-center justify-between bg-gray-400/10 dark:bg-gray-900/60 rounded-xl font-semibold shadow-md dark:shadow-white/20 hover:scale-105">
             <h1 className="text-2xl text-nowrap">Number of projects</h1>
             <span className="text-5xl">
@@ -61,7 +61,7 @@ const Hero = () => {
             <span className="text-5xl font-semibold">{months}+</span>
           </div>
         </div>
-        <div className="p-10 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
+        <div className="p-6 sm:p-10 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
           <h1 className="text-2xl font-semibold ">Featured Project</h1>
           <div className="grid grid-cols-2 gap-4 w-full">
             <img
@@ -69,7 +69,7 @@ const Hero = () => {
               alt="Thumbnail"
               className=" h-full rounded-lg shadow-lg shadow-gray-600"
             />
-            <p>
+            <p className="text-xs sm:text-base">
               A dynamic frontend website for a cryptocurrency-focused company,
               leveraging Coingecko’s API to retrieve real-time data, thus
               providing users with accurate and up-to-date information on
@@ -82,13 +82,16 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full px-4 py-8 flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20">
+      <div className="w-full px-1 sm:px-4 py-8 flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20">
         <h1 className=" text-2xl font-semibold text-center">My introduction</h1>
         <span className="mb-2">
           {githubInfo ? (
             <div className="flex gap-2 justify-between items-center italic">
-              <img src={githubInfo.avatar_url} className=" h-36 rounded-full" />
-              <p>
+              <img
+                src={githubInfo.avatar_url}
+                className="h-24 sm:h-36 rounded-full"
+              />
+              <p className=" sm:text-base text-xs">
                 Welcome to my portfolio!! 🌟 Each project is a story, waiting
                 for you to unfold. Thanks for stopping by—let’s make something
                 amazing together! 🧑🏻‍💻
@@ -110,11 +113,19 @@ const Hero = () => {
           <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800">
             Degree: Bachelor of Technology
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
-            College:<p> Sardar Vallabhbhai National Institute of Technology</p>
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1 ">
+            College:
+            <p className="hidden sm:block">
+              Sardar Vallabhbhai National Institute of Technology
+            </p>
+            <p className="sm:hidden">Nit Surat, Gujarat</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
-            Interests:<p> Coding, programming and web development</p>
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1 text-xs sm:text-base">
+            Interests:
+            <p className="hidden sm:block">
+              Coding, programming and web development
+            </p>
+            <p className="sm:hidden">Coding, programing, web development</p>
           </h1>
           <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800">
             Email: yashjaiswal2509@gmail.com

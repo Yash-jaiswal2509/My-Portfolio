@@ -38,7 +38,9 @@ const AddProject = () => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("description", data.description);
-    formdata.append("projectImages", data.projectImages[0],"projectImage");
+    Array.from(data.projectImages).forEach((imageFile) => {
+      formdata.append(`projectImages`, imageFile);
+    });
     mutation.mutate(formdata);
   });
   return (
@@ -103,6 +105,8 @@ const AddProject = () => {
           </div>
           <input
             type="file"
+            accept="image/*"
+            multiple
             className=" outline-0 border-2 dark:border-cyan-950 rounded-md p-4 dark:bg-gray-950/80"
             {...register("projectImages", {
               required: "This field is required",
