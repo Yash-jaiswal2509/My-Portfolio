@@ -25,5 +25,3 @@ dist-ssr
 
 #Enovrionment Variables
 .env
-
-admin.middleware.ts

@@ -1,4 +1,3 @@
-import { ProjectType } from "../../../backend/src/shared/types";
 import { PlusCircle } from "lucide-react";
 import TechStack from "./TechStack";
 import { Button } from "./ui/button";
@@ -13,6 +12,12 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
+
+export type ProjectType = {
+  title: string;
+  description: string;
+  projectImages: string[];
+};
 
 const Projects = () => {
   const { isAdmin } = useAuth();
