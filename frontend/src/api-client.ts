@@ -70,7 +70,11 @@ export const fetchProjects = async () => {
     const response = await axios.get("api/v1/projects", {
       withCredentials: true,
     });
-    return response;
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      throw new Error("Unexpected response status: " + response.status);
+    }
   } catch (error) {
     console.error("Error fetching projects:", error);
     throw new Error("Failed to fetch projects. Please try again later.");
