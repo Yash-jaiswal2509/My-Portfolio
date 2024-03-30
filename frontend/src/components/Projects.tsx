@@ -46,7 +46,7 @@ const Projects = () => {
         {isAdmin ? (
           <Button
             variant="secondary"
-            className=" text-lg font-bold "
+            className=" text-lg font-bold mb-4"
             onClick={() => navigate("/add-project")}
           >
             Add Project <PlusCircle className="ml-2" />
