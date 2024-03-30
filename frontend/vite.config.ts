@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "",
+      "/api": "https://my-portfolio-backend-jw33.onrender.com",
     },
   },
   plugins: [react()],
