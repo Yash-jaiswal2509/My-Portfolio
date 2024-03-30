@@ -91,7 +91,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   //When user successfully registers we are sending response to client using createdUser in which we are not sending password and refresh token
   res
     .status(201)
-    .json(new apiResponse(200, createdUser, "User registered successfully"));
+    .json(new apiResponse(201, createdUser, "User registered successfully"));
 });
 
 //login

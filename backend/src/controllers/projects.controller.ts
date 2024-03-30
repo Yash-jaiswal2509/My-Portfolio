@@ -49,7 +49,7 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
 
   res
     .status(201)
-    .json(new apiResponse(200, createdProject, "Project added successfully"));
+    .json(new apiResponse(201, createdProject, "Project added successfully"));
 });
 
 
@@ -63,6 +63,6 @@ export const fetchProjects = asyncHandler(
 
     res
       .status(201)
-      .json(new apiResponse(200, projects, "Projecs fetched succesfully"));
+      .json(new apiResponse(201, projects, "Projecs fetched succesfully"));
   }
 );
