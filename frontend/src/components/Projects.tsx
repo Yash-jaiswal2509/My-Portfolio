@@ -14,9 +14,9 @@ import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export type ProjectType = {
-  title: string;
-  description: string;
-  projectImages: string[];
+  title?: string;
+  description?: string;
+  projectImages?: string[];
 };
 
 const Projects = () => {
@@ -88,7 +88,7 @@ const Projects = () => {
                       ]}
                     >
                       <CarouselContent>
-                        {project.projectImages.map(
+                        {project.projectImages?.map(
                           (image: string, index: number) => (
                             <CarouselItem key={index}>
                               <img src={image} className=" h-56 w-full " />
