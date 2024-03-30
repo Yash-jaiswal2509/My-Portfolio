@@ -1,10 +1,12 @@
 import axios from "axios";
 import { LoginFormData } from "./pages/Login";
 
+const apiURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
   const response = await axios
-    .post("api/v1/users/register", formData, {
+    .post(`${apiURL}/api/v1/users/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -18,9 +20,12 @@ export const register = async (formData: FormData) => {
 
 export const validateToken = async () => {
   try {
-    const response = await axios.post("api/v1/users/protected-route", {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${apiURL}/api/v1/users/protected-route`,
+      {
+        withCredentials: true,
+      }
+    );
 
     if (response.status !== 200) {
       throw new Error("Something went wrong in fetching user details");
@@ -34,7 +39,7 @@ export const validateToken = async () => {
 
 export const login = async (data: LoginFormData) => {
   const response = await axios
-    .post("api/v1/users/login", data, {
+    .post(`${apiURL}/api/v1/users/login`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,16 +50,18 @@ export const login = async (data: LoginFormData) => {
 };
 
 export const logout = async () => {
-  const response = await axios.post("api/v1/users/logout").catch((error) => {
-    console.error(error);
-  });
+  const response = await axios
+    .post(`${apiURL}/api/v1/users/logout`)
+    .catch((error) => {
+      console.error(error);
+    });
 
   return response;
 };
 
 export const addProject = async (formData: FormData) => {
   const response = await axios
-    .post("api/v1/projects/add-project", formData, {
+    .post(`${apiURL}/api/v1/projects/add-project`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -67,7 +74,7 @@ export const addProject = async (formData: FormData) => {
 
 export const fetchProjects = async () => {
   try {
-    const response = await axios.get("api/v1/projects", {
+    const response = await axios.get(`${apiURL}/api/v1/projects`, {
       withCredentials: true,
     });
     if (response.status === 200) {
