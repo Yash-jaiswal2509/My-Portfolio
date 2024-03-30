@@ -13,14 +13,16 @@ const Header = () => {
   return (
     <div className="p-2 sm:p-5 h-20 flex items-center justify-between shadow-sm shadow-gray-300 dark:shadow-slate-500 bg-gray-400/10">
       <div className=" sm:px-2 flex items-center sm:gap-3 cursor-pointer">
-        <img
-          src="My-logo-light.png"
-          className=" w-12 h-12 sm:h-16 sm:w-16 dark:hidden"
-        />
-        <img
-          src="My-logo-dark.png"
-          className=" w-12 h-12 sm:h-16 sm:w-16 hidden dark:block"
-        />
+        <Link to="/">
+          <img
+            src="My-logo-light.png"
+            className=" w-12 h-12 sm:h-16 sm:w-16 dark:hidden"
+          />
+          <img
+            src="My-logo-dark.png"
+            className=" w-12 h-12 sm:h-16 sm:w-16 hidden dark:block"
+          />
+        </Link>
         <h1 className="font-inter text-sm sm:text-lg md:text-2xl font-black hover:opacity-75">
           Yash's Portfolio
           <br />

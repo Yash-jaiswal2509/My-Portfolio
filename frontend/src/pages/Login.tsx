@@ -34,13 +34,14 @@ const Login = () => {
 
   const mutation = useMutation({
     mutationFn: ApiClient.login,
-    onSuccess: () => {
+    onSettled: () => {
       toast("Logged In Successfully", {
         closeButton: true,
       });
       navigate("/");
       reset;
     },
+    
   });
 
   const onSubmit = handleSubmit((data: LoginFormData) => {

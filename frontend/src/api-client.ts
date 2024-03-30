@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LoginFormData } from "./pages/Login";
 
-const apiURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+const apiURL = import.meta.env.VITE_BACKEND_URL;
 
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
@@ -38,15 +38,18 @@ export const validateToken = async () => {
 };
 
 export const login = async (data: LoginFormData) => {
-  const response = await axios
-    .post(`${apiURL}/api/v1/users/login`, data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .catch((error) => console.error(error));
-
-  return response;
+  try {
+    const response = await axios
+      .post(`${apiURL}/api/v1/users/login`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+  
+    return response;
+  } catch (error) {
+    throw new Error("Something wrong in loggin:" + error)
+  }
 };
 
 export const logout = async () => {
