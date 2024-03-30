@@ -70,7 +70,7 @@ export const fetchProjects = async () => {
     const response = await axios.get("api/v1/projects", {
       withCredentials: true,
     });
-    if (response.status === 201) {
+    if (response.status === 200) {
       return response.data;
     } else {
       throw new Error("Unexpected response status: " + response.status);

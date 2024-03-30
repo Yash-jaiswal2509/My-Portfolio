@@ -42,7 +42,7 @@ const Projects = () => {
     <div className="overflow-hidden flex flex-col w-fit">
       <TechStack />
       <div className=" flex flex-col p-2 sm:p-5 ">
-        {isAdmin ? (
+        {isAdmin && (
           <Button
             variant="secondary"
             className=" text-lg font-bold mb-4"
@@ -50,8 +50,6 @@ const Projects = () => {
           >
             Add Project <PlusCircle className="ml-2" />
           </Button>
-        ) : (
-          <></>
         )}
 
         {isFetching ? (
@@ -72,45 +70,43 @@ const Projects = () => {
           </div>
         ) : (
           <div className="px-1 py-4 sm:py-0 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {ProjectsData.data.map(
-              (project: ProjectType, index: number) => {
-                return (
-                  <div
-                    key={index}
-                    className="p-2 sm:p-4 flex flex-col gap-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl shadow-md dark:shadow-white/20 border-2 border-white/10"
+            {ProjectsData.data.map((project: ProjectType, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="p-2 sm:p-4 flex flex-col gap-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl shadow-md dark:shadow-white/20 border-2 border-white/10"
+                >
+                  <Carousel
+                    className="shadow-lg dark:shadow-white/20 rounded-md sm:rounded-xl overflow-hidden"
+                    plugins={[
+                      Autoplay({
+                        delay: 4000,
+                      }),
+                    ]}
                   >
-                    <Carousel
-                      className="shadow-lg dark:shadow-white/20 rounded-md sm:rounded-xl overflow-hidden"
-                      plugins={[
-                        Autoplay({
-                          delay: 4000,
-                        }),
-                      ]}
-                    >
-                      <CarouselContent>
-                        {project.projectImages.map(
-                          (image: string, index: number) => (
-                            <CarouselItem key={index}>
-                              <img src={image} className=" h-56 w-full " />
-                            </CarouselItem>
-                          )
-                        )}
-                      </CarouselContent>
-                    </Carousel>
-                    <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-2">
-                      {project.title}
-                    </h1>
-                    <p className="italic px-2 sm:px-4">{project.description}</p>
-                    <Button
-                      variant="outline"
-                      className=" w-full text-sm lg:text-lg font-semibold hover:underline"
-                    >
-                      View More
-                    </Button>
-                  </div>
-                );
-              }
-            )}
+                    <CarouselContent>
+                      {project.projectImages.map(
+                        (image: string, index: number) => (
+                          <CarouselItem key={index}>
+                            <img src={image} className=" h-56 w-full " />
+                          </CarouselItem>
+                        )
+                      )}
+                    </CarouselContent>
+                  </Carousel>
+                  <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-2">
+                    {project.title}
+                  </h1>
+                  <p className="italic px-2 sm:px-4">{project.description}</p>
+                  <Button
+                    variant="outline"
+                    className=" w-full text-sm lg:text-lg font-semibold hover:underline"
+                  >
+                    View More
+                  </Button>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
