@@ -13,6 +13,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
 
+
 export type ProjectType = {
   title: string;
   description: string;
@@ -27,12 +28,16 @@ const Projects = () => {
   const {
     data: ProjectsData,
     isFetching,
+    isError,
   } = useQuery({
     queryKey: ["fetchProjects"],
     queryFn: ApiClient.fetchProjects,
     retry: false,
   });
 
+  if (isError) {
+    throw new Error("Something went wrong while fetching projects");
+  }
 
   return (
     <div className="overflow-hidden flex flex-col w-fit">
