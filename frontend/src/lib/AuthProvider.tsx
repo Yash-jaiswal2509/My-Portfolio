@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../api-client";
+import { toast } from "sonner";
 
 type AuthContextProps = {
   isLoggedIn: boolean;
@@ -46,12 +47,18 @@ export default function AuthProvider({
     }
   }, [userData, userIsError]);
 
-  
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast("User successfully logged in");
+    } else {
+      toast("User successfully logged out");
+    }
+  }, [isLoggedIn]);
+
   const contextValue: AuthContextProps = {
     isLoggedIn,
     isAdmin,
   };
-
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

@@ -120,7 +120,7 @@ const Hero = () => {
             </p>
             <p className="sm:hidden">Nit Surat, Gujarat</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1 text-xs sm:text-base">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1">
             Interests:
             <p className="hidden sm:block">
               Coding, programming and web development
