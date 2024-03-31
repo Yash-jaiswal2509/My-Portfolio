@@ -31,18 +31,18 @@ const Header = () => {
           </p>
         </h1>
       </div>
-      <div className="flex hover:opacity-95">
+      <div className="flex hover:opacity-95 items-center">
         <div>
           <MenuButton />
         </div>
         <ModeToggle />
         {isLoggedIn ? (
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <LogOutButton />
             <img
               src={userDetail.data.user.coverImage}
               alt="User-Image"
-              className=" w-12 h-12 sm:h-16 sm:w-16 hidden sm:block rounded-full"
+              className=" w-10 h-10 sm:h-14 sm:w-14 hidden sm:block rounded-full"
             />
           </div>
         ) : (
