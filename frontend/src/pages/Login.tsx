@@ -21,11 +21,14 @@ const Login = () => {
   const navigate = useNavigate();
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
-
+  const { setIsLoggedIn, setIsAdmin } = useAuth();
   useEffect(() => {
     if (theme === "dark") {
       setToggleBg("#000000");
       setToggleParColor("#ffffff");
+    } else {
+      setToggleBg("#ffffff"); // Set to light theme background color
+      setToggleParColor("#000000"); // Set to light theme particle color
     }
   }, [theme]);
 
@@ -43,25 +46,14 @@ const Login = () => {
     mutation.mutate(data);
   });
 
-  if (mutation.isSuccess) {
-    navigate("/");
-    toast.message("Successfully Logged In");
-  }
-
-  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useAuth();
-
   useEffect(() => {
-    if (mutation.data?.data.statusCode === 200) {
+    if (mutation.isSuccess) {
       setIsLoggedIn(true);
-      console.log(isLoggedIn)
+      setIsAdmin(mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55");
+      navigate("/");
+      toast.message("Successfully Logged In");
     }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    if (mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55") {
-      setIsAdmin(true);
-    }
-  }, [isAdmin]);
+  }, [mutation.isSuccess]);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
