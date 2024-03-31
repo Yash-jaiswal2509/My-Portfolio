@@ -5,6 +5,8 @@ type AuthContextProps = {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   isAdmin: boolean;
   setIsAdmin: (isAdmin: boolean) => void;
+  userDetail: any;
+  setUserDetail: (userDetail: any) => void;
 };
 
 const initialState: AuthContextProps = {
@@ -12,7 +14,11 @@ const initialState: AuthContextProps = {
   setIsLoggedIn: () => {},
   isAdmin: false,
   setIsAdmin: () => {},
+  userDetail: null,
+  setUserDetail: () => {},
 };
+
+//these are all the initialState which also matches the useState variables, so don't get confused
 
 const AuthContext = createContext<AuthContextProps>(initialState);
 
@@ -23,12 +29,15 @@ export default function AuthProvider({
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [userDetail, setUserDetail] = useState<any>("");
 
   const contextValue: AuthContextProps = {
     isLoggedIn,
     setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
     isAdmin,
     setIsAdmin: (value: boolean) => setIsAdmin(value),
+    userDetail,
+    setUserDetail: (value: any) => setUserDetail(value),
   };
 
   return (

@@ -8,7 +8,7 @@ import LogOutButton from "./LogOutButton";
 import MenuButton from "./MenuButton";
 
 const Header = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, userDetail } = useAuth();
 
   return (
     <div className="p-2 sm:p-5 h-20 flex items-center justify-between shadow-sm shadow-gray-300 dark:shadow-slate-500 bg-gray-400/10">
@@ -37,7 +37,14 @@ const Header = () => {
         </div>
         <ModeToggle />
         {isLoggedIn ? (
-          <LogOutButton />
+          <div className="flex gap-2">
+            <LogOutButton />
+            <img
+              src={userDetail.data.user.coverImage}
+              alt="User-Image"
+              className=" w-12 h-12 sm:h-16 sm:w-16 hidden sm:block rounded-full"
+            />
+          </div>
         ) : (
           <Link to="/login">
             <Button

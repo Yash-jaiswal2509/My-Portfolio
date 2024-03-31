@@ -21,7 +21,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
-  const { setIsLoggedIn, setIsAdmin } = useAuth();
+  const { setIsLoggedIn, setIsAdmin, setUserDetail } = useAuth();
+
   useEffect(() => {
     if (theme === "dark") {
       setToggleBg("#000000");
@@ -49,7 +50,10 @@ const Login = () => {
   useEffect(() => {
     if (mutation.isSuccess) {
       setIsLoggedIn(true);
-      setIsAdmin(mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55");
+      setIsAdmin(
+        mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55"
+      );
+      setUserDetail(mutation.data?.data);
       navigate("/");
       toast.message("Successfully Logged In");
     }
