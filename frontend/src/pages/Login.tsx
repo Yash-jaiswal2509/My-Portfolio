@@ -53,10 +53,11 @@ const Login = () => {
   useEffect(() => {
     if (mutation.data?.status === 200) {
       setIsLoggedIn(true);
+      console.log(isLoggedIn)
     }
   }, [isLoggedIn]);
 
-  console.log(mutation.data?.data.user);
+  console.log(mutation.data?.data);
   useEffect(() => {
     if (mutation.data?.data.user === "66045c9402f822aa92aeda55") {
       setIsAdmin(true);
