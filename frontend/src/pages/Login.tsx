@@ -4,9 +4,10 @@ import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
+import { useEffect, useState } from "react";
 
 export type LoginFormData = {
   email: string;
@@ -15,12 +16,21 @@ export type LoginFormData = {
 
 const Login = () => {
   const { theme } = useTheme();
-  let toggleBg = "#FFF";
-  let toggleParColor = "#000";
-  if (theme === "dark") {
-    toggleParColor = "#FFF";
-    toggleBg = "#020817";
-  }
+
+  const [toggleBg, setToggleBg] = useState("#FFF");
+  const [toggleParColor, setToggleParColor] = useState("#000");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setToggleBg("#FFF");
+      setToggleParColor("#20817");
+    }
+
+    return () => {
+      setToggleBg("#FFF");
+      setToggleParColor("#000");
+    };
+  }, [theme]);
 
   const {
     register,
@@ -31,14 +41,14 @@ const Login = () => {
 
   const mutation = useMutation({
     mutationFn: ApiClient.login,
-    onSettled: () => {
-      reset;
-    },
   });
 
   const onSubmit = handleSubmit((data: LoginFormData) => {
     mutation.mutate(data);
+    reset(data);
   });
+
+  console.log(mutation.data);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
@@ -121,7 +131,7 @@ const Login = () => {
                   <Link to="/register">
                     <span className=" text-cyan-700 hover:text-cyan-800 underline cursor-pointer">
                       Create Account
-                    </span>{" "}
+                    </span>
                   </Link>
                 </span>
               </BackgroundGradient>

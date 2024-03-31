@@ -39,16 +39,18 @@ export const validateToken = async () => {
 
 export const login = async (data: LoginFormData) => {
   try {
-    const response = await axios
-      .post(`${apiURL}/api/v1/users/login`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-  
+    const response = await axios.post(`${apiURL}/api/v1/users/login`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status !== 200) {
+      throw new Error("Something went wrong in loggin user details");
+    }
     return response;
+    
   } catch (error) {
-    throw new Error("Something wrong in loggin:" + error)
+    throw new Error("Something wrong in loggin:" + error);
   }
 };
 
