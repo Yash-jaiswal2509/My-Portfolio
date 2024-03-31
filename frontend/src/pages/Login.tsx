@@ -57,7 +57,8 @@ const Login = () => {
     }
   }, [isLoggedIn]);
 
-  console.log(mutation.data?.data);
+  console.log(mutation.data?.data.statusCode);
+  console.log(mutation.data?.data.data.user._id);
   useEffect(() => {
     if (mutation.data?.data.user === "66045c9402f822aa92aeda55") {
       setIsAdmin(true);
