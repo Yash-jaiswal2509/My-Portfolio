@@ -27,14 +27,14 @@ const Projects = () => {
   const {
     data: ProjectsData,
     isFetching,
-    isError,
+    isError: ProjectsDataError,
   } = useQuery({
     queryKey: ["fetchProjects"],
     queryFn: ApiClient.fetchProjects,
     retry: 5,
   });
 
-  if (isError) {
+  if (ProjectsDataError) {
     return <blockquote>Something went wrong</blockquote>;
   }
 

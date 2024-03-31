@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/lib/AuthProvider";
 
 export type LoginFormData = {
   email: string;
@@ -26,11 +27,6 @@ const Login = () => {
       setToggleBg("#FFF");
       setToggleParColor("#20817");
     }
-
-    return () => {
-      setToggleBg("#FFF");
-      setToggleParColor("#000");
-    };
   }, [theme]);
 
   const {
@@ -47,7 +43,24 @@ const Login = () => {
     mutation.mutate(data);
   });
 
-  console.log(mutation.data);
+  if (mutation.isSuccess) {
+    navigate("/");
+    toast.message("Successfully Logged In");
+  }
+
+  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useAuth();
+
+  useEffect(() => {
+    if (mutation.data?.status === 200) {
+      setIsLoggedIn(true);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (mutation.data?.data.user === "66045c9402f822aa92aeda55") {
+      setIsAdmin(true);
+    }
+  }, [isAdmin]);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">

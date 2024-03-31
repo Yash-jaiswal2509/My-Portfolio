@@ -1,45 +1,34 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { useQuery } from "@tanstack/react-query";
-import * as ApiClient from "../api-client";
+import { createContext, useState, useContext } from "react";
 
 type AuthContextProps = {
   isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
   isAdmin: boolean;
+  setIsAdmin: (isAdmin: boolean) => void;
 };
 
-const AuthContext = createContext<AuthContextProps>({
+const initialState: AuthContextProps = {
   isLoggedIn: false,
+  setIsLoggedIn: () => {},
   isAdmin: false,
-});
+  setIsAdmin: () => {},
+};
+
+const AuthContext = createContext<AuthContextProps>(initialState);
 
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-  const { isError: userIsError, data: userData } = useQuery({
-    queryKey: ["protectedRoute"],
-    queryFn: ApiClient.protectedRoute,
-    retry: false,
-  });
-
-  useEffect(() => {
-    if (
-      userData &&
-      userData.data &&
-      userData.data.data.userId === "66045c9402f822aa92aeda55"
-    ) {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  }, [userData]);
-
   const contextValue: AuthContextProps = {
-    isLoggedIn: !userIsError,
+    isLoggedIn,
+    setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
     isAdmin,
+    setIsAdmin: (value: boolean) => setIsAdmin(value),
   };
 
   return (
