@@ -11,7 +11,7 @@ const LogOutButton = () => {
     mutationFn: ApiClient.logout,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["validateToken"],
+        queryKey: ["protectedRoute"],
       });
       toast("Logged Out Successfully!!!", {
         closeButton: true,

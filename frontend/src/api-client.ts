@@ -5,20 +5,25 @@ const apiURL = import.meta.env.VITE_BACKEND_URL;
 
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
-  const response = await axios
-    .post(`${apiURL}/api/v1/users/register`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      withCredentials: true,
-    })
-    .then((res) => console.log(res.data))
-    .catch((error: Error) => console.error(error));
+  try {
+    const response = await axios
+      .post(`${apiURL}/api/v1/users/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      })
+      .then((res) => console.log(res.data))
+      .catch((error: Error) => console.error(error));
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Something went wrong while registering");
+  }
 };
 
-export const validateToken = async () => {
+export const protectedRoute = async () => {
   try {
     const response = await axios.post(
       `${apiURL}/api/v1/users/protected-route`,
@@ -39,42 +44,50 @@ export const validateToken = async () => {
 
 export const login = async (data: LoginFormData) => {
   try {
-    const response = await axios.post(`${apiURL}/api/v1/users/login`, data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status !== 200) {
-      throw new Error("Something went wrong in loggin user details");
-    }
+    const response = await axios
+      .post(`${apiURL}/api/v1/users/login`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch((error: Error) => console.error(error));
+
     return response;
-    
   } catch (error) {
     throw new Error("Something wrong in loggin:" + error);
   }
 };
 
 export const logout = async () => {
-  const response = await axios
-    .post(`${apiURL}/api/v1/users/logout`)
-    .catch((error) => {
-      console.error(error);
-    });
+  try {
+    const response = await axios
+      .post(`${apiURL}/api/v1/users/logout`)
+      .catch((error) => {
+        console.error(error);
+      });
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const addProject = async (formData: FormData) => {
-  const response = await axios
-    .post(`${apiURL}/api/v1/projects/add-project`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      withCredentials: true,
-    })
-    .catch((error: Error) => console.error(error));
+  try {
+    const response = await axios
+      .post(`${apiURL}/api/v1/projects/add-project`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      })
+      .catch((error: Error) => console.error(error));
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const fetchProjects = async () => {

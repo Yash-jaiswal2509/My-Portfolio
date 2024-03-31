@@ -3,11 +3,12 @@ import { useTheme } from "@/lib/theme-provider";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export type LoginFormData = {
   email: string;
@@ -16,7 +17,7 @@ export type LoginFormData = {
 
 const Login = () => {
   const { theme } = useTheme();
-
+  const navigate = useNavigate();
   const [toggleBg, setToggleBg] = useState("#FFF");
   const [toggleParColor, setToggleParColor] = useState("#000");
 
@@ -48,7 +49,16 @@ const Login = () => {
     reset(data);
   });
 
-  console.log(mutation.data);
+  const loginResponse = mutation.data;
+
+  useEffect(() => {
+    if (loginResponse) {
+      toast.success("Login Successfull");
+      navigate("/");
+    } else {
+      toast.error("Error in loggin in");
+    }
+  }, [loginResponse]);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
