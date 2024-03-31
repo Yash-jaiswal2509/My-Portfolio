@@ -19,13 +19,13 @@ export type LoginFormData = {
 const Login = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const [toggleBg, setToggleBg] = useState("#FFF");
-  const [toggleParColor, setToggleParColor] = useState("#000");
+  const [toggleBg, setToggleBg] = useState("#000000");
+  const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
 
   useEffect(() => {
     if (theme === "dark") {
-      setToggleBg("#FFF");
-      setToggleParColor("#20817");
+      setToggleBg("#000000");
+      setToggleParColor("#ffffff");
     }
   }, [theme]);
 
@@ -56,6 +56,7 @@ const Login = () => {
     }
   }, [isLoggedIn]);
 
+  console.log(mutation.data?.data.user);
   useEffect(() => {
     if (mutation.data?.data.user === "66045c9402f822aa92aeda55") {
       setIsAdmin(true);
@@ -73,7 +74,7 @@ const Login = () => {
             maxSize={1.4}
             particleDensity={80}
             className="w-full h-full"
-            particleColor={toggleParColor}
+            particleColor={toggleParticleColor}
           />
         </div>
         <div className="z-20 relative px-4 sm:px-20 md:px-40 py-10 flex flex-col">
