@@ -37,7 +37,6 @@ const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<LoginFormData>();
 
   const mutation = useMutation({
@@ -46,19 +45,9 @@ const Login = () => {
 
   const onSubmit = handleSubmit((data: LoginFormData) => {
     mutation.mutate(data);
-    reset(data);
   });
 
-  const loginResponse = mutation.data;
-
-  useEffect(() => {
-    if (loginResponse) {
-      toast.success("Login Successfull");
-      navigate("/");
-    } else {
-      toast.error("Error in loggin in");
-    }
-  }, [loginResponse]);
+  console.log(mutation.data);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">

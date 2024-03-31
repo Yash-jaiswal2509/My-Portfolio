@@ -50,7 +50,6 @@ export const login = async (data: LoginFormData) => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res.data))
       .catch((error: Error) => console.error(error));
 
     return response;
