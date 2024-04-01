@@ -3,18 +3,16 @@ import { Button } from "./ui/button";
 import * as ApiClient from "../api-client";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
-import { useEffect } from "react";
-import { useAuth } from "@/lib/AuthProvider";
+
 
 const LogOutButton = () => {
   const queryClient = useQueryClient();
-  const { setIsLoggedIn } = useAuth();
 
   const mutation = useMutation({
     mutationFn: ApiClient.logout,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["protectedRoute"],
+        queryKey: ["validateToken"],
       });
       toast("Logged Out Successfully!!!", {
         closeButton: true,
@@ -29,11 +27,6 @@ const LogOutButton = () => {
     mutation.mutate();
   };
 
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      setIsLoggedIn(false);
-    }
-  }, [mutation.isSuccess]);
 
   return (
     <Button
