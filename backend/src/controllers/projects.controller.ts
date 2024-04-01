@@ -11,6 +11,8 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
   if ([title, description].some((field) => field?.trim() === "")) {
     throw new apiError(400, "All fields are required");
   }
+  console.log(title);
+  console.log(description);
 
   const existingProject = await Project.findOne({
     $or: [{ title }],
@@ -21,17 +23,20 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const projectImagePath = req.files as Express.Multer.File[];
-
+  console.log(projectImagePath);
   if (!projectImagePath) {
     throw new apiError(400, "Project image is required");
   }
 
   const projectImages = await uploadToCloudinary(projectImagePath);
 
+  console.log(projectImages);
+
   if (!projectImages) {
     throw new apiError(500, "Failed to upload project image(s)");
   }
   const projectImageUrls = projectImages.map((image) => image.url);
+  console.log(projectImageUrls);
 
   const project = await Project.create({
     title,
@@ -39,9 +44,11 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
     projectImages: projectImageUrls,
   });
 
+  console.log(project);
   await project.save();
 
   const createdProject = await Project.findById(project._id);
+  console.log(createdProject);
 
   if (!createdProject) {
     throw new apiError(500, "Something went worng while finding project");
@@ -50,6 +57,7 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
   res
     .status(201)
     .json(new apiResponse(200, createdProject, "Project added successfully"));
+  console.log(res);
 });
 
 export const fetchProjects = asyncHandler(

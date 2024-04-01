@@ -1,4 +1,4 @@
-import { PlusCircle } from "lucide-react";
+import { MousePointerClick, PlusCircle } from "lucide-react";
 import TechStack from "./TechStack";
 import { Button } from "./ui/button";
 import { useAuth } from "../lib/AuthProvider";
@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
-
 export type ProjectType = {
   title: string;
   description: string;
@@ -100,9 +99,9 @@ const Projects = () => {
                   <p className="italic px-2 sm:px-4">{project.description}</p>
                   <Button
                     variant="outline"
-                    className=" w-full text-sm lg:text-lg font-semibold hover:underline"
+                    className=" w-full flex items-center text-sm lg:text-lg font-semibold hover:underline"
                   >
-                    View More
+                    Click Here <MousePointerClick size={25} />
                   </Button>
                 </div>
               );
