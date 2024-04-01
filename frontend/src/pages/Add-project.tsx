@@ -54,6 +54,7 @@ const AddProject = () => {
   return (
     <div className="p-10 w-full">
       <form
+        encType="multipart/form-data"
         className="bg-gray-400/10 dark:bg-gray-900/70 p-10 flex flex-col gap-4 rounded-xl"
         onSubmit={onSubmit}
       >
@@ -78,6 +79,7 @@ const AddProject = () => {
             })}
           />
         </label>
+        
         <label className="flex flex-col gap-2">
           <div className="flex-row">
             <span className="font-bold text-3xl">
@@ -99,6 +101,7 @@ const AddProject = () => {
             })}
           />
         </label>
+
         <label className="flex flex-col gap-2">
           <div className="flex-row">
             <span className="font-bold text-3xl">
@@ -121,6 +124,7 @@ const AddProject = () => {
             })}
           />
         </label>
+
         <Button
           type="submit"
           className="text-xl dark:bg-black/50 dark:hover:bg-black dark:text-white"

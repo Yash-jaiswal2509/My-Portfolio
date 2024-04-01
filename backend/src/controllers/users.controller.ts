@@ -56,7 +56,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   //Taking a cover-image, when registering
   const coverImageLocalPath = req.files as Express.Multer.File[];
-  console.log(coverImageLocalPath);
 
   if (!coverImageLocalPath) {
     throw new apiError(400, "Cover image is required");
@@ -64,7 +63,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   //uploading it to cloudinary
   const coverImages = await uploadToCloudinary(coverImageLocalPath);
-  console.log(coverImages);
 
   if (!coverImages) {
     throw new apiError(500, "Failed to upload cover image(s)");
