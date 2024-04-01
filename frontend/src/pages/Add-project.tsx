@@ -41,8 +41,11 @@ const AddProject = () => {
     Array.from(data.projectImages).forEach((imageFile) => {
       formdata.append(`projectImages`, imageFile);
     });
+    console.log(formdata);
     mutation.mutate(formdata);
   });
+
+  console.log(mutation.data);
   return (
     <div className="p-10 w-full">
       <form

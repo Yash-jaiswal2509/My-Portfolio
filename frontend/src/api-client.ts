@@ -81,6 +81,7 @@ export const addProject = async (formData: FormData) => {
         },
         withCredentials: true,
       })
+      .then(res => console.log(res.data))
       .catch((error: Error) => console.error(error));
 
     return response;
