@@ -4,7 +4,7 @@ import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
 import { useEffect, useState } from "react";
@@ -19,10 +19,9 @@ export type LoginFormData = {
 const Login = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
-  const { setIsAdmin, setUserDetail } = useAuth();
+  const { setIsLoggedIn, setIsAdmin, setUserDetail } = useAuth();
 
   useEffect(() => {
     if (theme === "dark") {
@@ -42,11 +41,6 @@ const Login = () => {
 
   const mutation = useMutation({
     mutationFn: ApiClient.login,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ["validateToken"],
-      });
-    },
   });
 
   const onSubmit = handleSubmit((data: LoginFormData) => {
@@ -55,12 +49,13 @@ const Login = () => {
 
   useEffect(() => {
     if (mutation.isSuccess) {
+      setIsLoggedIn(true);
       setIsAdmin(
         mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55"
       );
       setUserDetail(mutation.data?.data);
       navigate("/");
-      toast.message("Successfully Logged In",{closeButton:true});
+      toast.message("Successfully Logged In", { closeButton: true });
     }
   }, [mutation.isSuccess]);
 

@@ -23,10 +23,10 @@ export const register = async (formData: FormData) => {
   }
 };
 
-export const validateToken = async () => {
+export const protectedRoute = async () => {
   try {
     const response = await axios.post(
-      `${apiURL}/api/v1/users/validate-token`,
+      `${apiURL}/api/v1/users/protected-route`,
       {
         withCredentials: true,
       }

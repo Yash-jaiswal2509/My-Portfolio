@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import * as ApiClient from "@/api-client";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -20,7 +20,6 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
-  const queryClient = useQueryClient();
   const { theme } = useTheme();
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
@@ -45,12 +44,9 @@ const Register = () => {
 
   const mutation = useMutation({
     mutationFn: ApiClient.register,
-    onSuccess: async () => {
+    onSuccess: () => {
       toast("Successfully Registered!!", {
         closeButton: true,
-      });
-      await queryClient.invalidateQueries({
-        queryKey: ["validateToken"],
       });
       navigate("/");
     },

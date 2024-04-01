@@ -17,7 +17,7 @@ router.post("/login", loginUser);
 router.post("/logout", verifyJwt, logOutUser);
 
 //check for the user
-router.post("/validate-token", verifyJwt, refreshAccessToken);
+router.post("/protected-route", verifyJwt, refreshAccessToken);
 
 
 export default router;

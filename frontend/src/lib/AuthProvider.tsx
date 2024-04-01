@@ -1,9 +1,8 @@
 import { createContext, useState, useContext } from "react";
-import { useQuery } from "@tanstack/react-query";
-import * as ApiClient from "../api-client";
 
 type AuthContextProps = {
   isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
   isAdmin: boolean;
   setIsAdmin: (isAdmin: boolean) => void;
   userDetail: any;
@@ -12,6 +11,7 @@ type AuthContextProps = {
 
 const initialState: AuthContextProps = {
   isLoggedIn: false,
+  setIsLoggedIn: () => {},
   isAdmin: false,
   setIsAdmin: () => {},
   userDetail: null,
@@ -27,16 +27,13 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [userDetail, setUserDetail] = useState<any>("");
-  const { isError } = useQuery({
-    queryKey: ["validateToken"],
-    queryFn: ApiClient.validateToken,
-    retry: false,
-  });
 
   const contextValue: AuthContextProps = {
-    isLoggedIn: !isError,
+    isLoggedIn,
+    setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
     isAdmin,
     setIsAdmin: (value: boolean) => setIsAdmin(value),
     userDetail,
