@@ -45,7 +45,6 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
   });
 
   console.log(project);
-  await project.save();
 
   const createdProject = await Project.findById(project._id);
   console.log(createdProject);

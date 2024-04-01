@@ -99,9 +99,9 @@ const Projects = () => {
                   <p className="italic px-2 sm:px-4">{project.description}</p>
                   <Button
                     variant="outline"
-                    className=" w-full flex items-center text-sm lg:text-lg font-semibold hover:underline"
+                    className=" w-full flex gap-2 items-center text-sm lg:text-lg font-semibold hover:underline"
                   >
-                    Click Here <MousePointerClick size={25} />
+                    Click Here <MousePointerClick size={22} />
                   </Button>
                 </div>
               );
