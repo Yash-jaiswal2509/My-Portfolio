@@ -55,7 +55,7 @@ const Login = () => {
       );
       setUserDetail(mutation.data?.data);
       navigate("/");
-      toast.message("Successfully Logged In");
+      toast.message("Successfully Logged In", { closeButton: true });
     }
   }, [mutation.isSuccess]);
 

@@ -8,8 +8,9 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import * as ApiClient from "@/api-client";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
-export type RegisterFromData = {
+export type RegisterFormData = {
   fullName: string;
   username: string;
   email: string;
@@ -20,20 +21,25 @@ export type RegisterFromData = {
 
 const Register = () => {
   const { theme } = useTheme();
-  let toggleBg = "#FFF";
-  let toggleParColor = "#000";
-  if (theme === "dark") {
-    toggleParColor = "#FFF";
-    toggleBg = "#020817";
-  }
+  const [toggleBg, setToggleBg] = useState("#000000");
+  const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setToggleBg("#000000");
+      setToggleParColor("#ffffff");
+    } else {
+      setToggleBg("#ffffff"); // Set to light theme background color
+      setToggleParColor("#000000"); // Set to light theme particle color
+    }
+  }, [theme]);
 
   const {
     register,
     formState: { errors },
     watch,
     handleSubmit,
-    // reset,
-  } = useForm<RegisterFromData>();
+  } = useForm<RegisterFormData>();
   const navigate = useNavigate();
 
   const mutation = useMutation({
@@ -51,7 +57,7 @@ const Register = () => {
     },
   });
 
-  const onSubmit = handleSubmit((data: RegisterFromData) => {
+  const onSubmit = handleSubmit((data: RegisterFormData) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);
     formData.append("username", data.username);
@@ -72,7 +78,7 @@ const Register = () => {
             maxSize={1.4}
             particleDensity={80}
             className="w-full h-full"
-            particleColor={toggleParColor}
+            particleColor={toggleParticleColor}
           />
         </div>
         <div className="z-20 relative px-4 sm:px-12 lg:px-28 md:h-dvh 2xl:h-full xl:px-40 py-5 sm:py-10 flex flex-col justify-center">
@@ -113,8 +119,6 @@ const Register = () => {
                       </span>
                     )}
                   </div>
-
-                  {/*  */}
 
                   <div className="flex-col w-full flex gap-2 lg:gap-5 ">
                     <label className="flex flex-col gap-1">
@@ -248,11 +252,11 @@ const Register = () => {
                     </Button>
 
                     <span className="text-center">
-                      Already have an account?{" "}
+                      Already have an account?
                       <Link to="/register">
                         <span className=" text-cyan-700 hover:text-cyan-800 underline cursor-pointer">
                           Login
-                        </span>{" "}
+                        </span>
                       </Link>
                     </span>
                   </div>

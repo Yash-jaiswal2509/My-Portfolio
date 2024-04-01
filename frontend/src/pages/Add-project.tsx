@@ -38,14 +38,19 @@ const AddProject = () => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("description", data.description);
-    Array.from(data.projectImages).forEach((imageFile) => {
-      formdata.append(`projectImages`, imageFile);
-    });
+    if (data.projectImages.length !== 0) {
+      for (let index = 0; index < data.projectImages.length; index++) {
+        formdata.append(
+          "projectImages",
+          data.projectImages[index],
+          "projectImages"
+        );
+      }
+    }
     console.log(formdata);
     mutation.mutate(formdata);
   });
 
-  console.log(mutation.data);
   return (
     <div className="p-10 w-full">
       <form
@@ -118,7 +123,7 @@ const AddProject = () => {
         </label>
         <Button
           type="submit"
-          className=" text-xl dark:bg-black/50 dark:hover:bg-black dark:text-white  "
+          className="text-xl dark:bg-black/50 dark:hover:bg-black dark:text-white"
           disabled={mutation.isPending}
         >
           {mutation.isPending ? "Submiting..." : "Submit"}
