@@ -87,6 +87,7 @@ export const addProject = async (formData: FormData) => {
     return response;
   } catch (error) {
     console.error(error);
+    throw new Error("Something went wrong while adding project")
   }
 };
 

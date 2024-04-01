@@ -21,7 +21,7 @@ const LogOutButton = () => {
       });
     },
     onError: () => {
-      throw new Error("Something wrong while invalidating queries");
+      throw new Error("Something while invalidating queries");
     },
   });
 
