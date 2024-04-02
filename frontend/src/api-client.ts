@@ -23,14 +23,11 @@ export const register = async (formData: FormData) => {
   }
 };
 
-export const protectedRoute = async () => {
+export const refreshToken = async () => {
   try {
-    const response = await axios.post(
-      `${apiURL}/api/v1/users/protected-route`,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.post(`${apiURL}/api/v1/users/refresh-token`, {
+      withCredentials: true,
+    });
 
     if (response.status !== 200) {
       throw new Error("Something went wrong in fetching user details");
@@ -81,13 +78,13 @@ export const addProject = async (formData: FormData) => {
         },
         withCredentials: true,
       })
-      .then(res => console.log(res.data))
+      .then((res) => console.log(res.data))
       .catch((error: Error) => console.error(error));
 
     return response;
   } catch (error) {
     console.error(error);
-    throw new Error("Something went wrong while adding project")
+    throw new Error("Something went wrong while adding project");
   }
 };
 

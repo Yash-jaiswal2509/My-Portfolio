@@ -59,6 +59,22 @@ const Login = () => {
     }
   }, [mutation.isSuccess]);
 
+  useEffect(() => {
+    const accessToken = document.cookie.replace(
+      /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    );
+    const refreshToken = document.cookie.replace(
+      /(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    );
+
+    if (accessToken && refreshToken) {
+      setIsLoggedIn(true);
+      navigate('/');
+    }
+  }, []);
+
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
       <div className="h-full relative w-full flex flex-col justify-center overflow-hidden rounded-xl">
