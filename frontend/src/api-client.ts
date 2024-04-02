@@ -14,7 +14,7 @@ export const register = async (formData: FormData) => {
         withCredentials: true,
       })
       .then((res) => console.log(res.data))
-      .catch((error: Error) => console.error(error));
+      .catch((error: Error) => console.error(error.stack));
 
     return response;
   } catch (error) {
