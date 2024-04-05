@@ -26,50 +26,29 @@ const generateAccessAndRefreshTokens = async (userId: string) => {
 
 //register
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  /*
-    1. get user details from frontend
-    2. validation - not empty
-    3. check if user already exists: username, email
-    4. upload them to cloudinary, avatar
-    5. create user object - create entry in db
-    6. remove password and refresh token field from response
-    7. check for user creation
-    8. return response
-  */
-
-  //This comes from client side or frontend
   const { fullName, username, email, password } = req.body;
-  // trim removes whitespace
-  if (
-    [fullName, username, email, password].some((field) => field?.trim() === "")
-  ) {
-    throw new apiError(400, "All fields are required");
+
+  if ([fullName, username, email, password].some(field => !field || field.trim() === '')) {
+    throw new apiError(400, 'All fields are required');
   }
 
-  const existingUser = await User.findOne({
-    $or: [{ username }, { email }],
-  });
-
+  const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existingUser) {
-    throw new apiError(409, "User already exists");
+    throw new apiError(409, 'User already exists');
   }
 
-  //Taking a cover-image, when registering
   const coverImageLocalPath = req.files as Express.Multer.File[];
-
-  if (!coverImageLocalPath) {
-    throw new apiError(400, "Cover image is required");
+  if (!coverImageLocalPath || !coverImageLocalPath.length) {
+    throw new apiError(400, 'Cover image is required');
   }
 
-  //uploading it to cloudinary
   const coverImages = await uploadToCloudinary(coverImageLocalPath);
-
-  if (!coverImages) {
-    throw new apiError(500, "Failed to upload cover image(s)");
+  if (!coverImages || !coverImages.length) {
+    throw new apiError(500, 'Failed to upload cover image(s)');
   }
-  const coverImageUrls = coverImages.map((image) => image.url);
 
-  //creating a user by taking input from req.body and req.file
+  const coverImageUrls = coverImages.map(image => image.url);
+
   const user = await User.create({
     fullName,
     coverImage: coverImageUrls,
@@ -78,19 +57,15 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     username: username.toLowerCase(),
   });
 
-  const createdUser = await User.findById(user._id).select(
-    "-password -refreshToken"
-  );
-
-  if (!createdUser) {
-    throw new apiError(500, "Something went wrong while user registration");
+  if (!user) {
+    throw new apiError(500, 'Something went wrong while user registration');
   }
 
-  //When user successfully registers we are sending response to client using createdUser in which we are not sending password and refresh token
-  res
-    .status(201)
-    .json(new apiResponse(200, createdUser, "User registered successfully"));
+  const { password: _, refreshToken: __, ...userWithoutSensitiveData } = user.toObject();
+
+  res.status(201).json(new apiResponse(200, userWithoutSensitiveData, 'User registered successfully'));
 });
+
 
 //login
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
