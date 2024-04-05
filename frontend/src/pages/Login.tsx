@@ -51,7 +51,7 @@ const Login = () => {
     if (mutation.isSuccess) {
       setIsLoggedIn(true);
       setIsAdmin(
-        mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55"
+        mutation.data?.data.data.user.username === "yashjai2509"
       );
       setUserDetail(mutation.data?.data);
       navigate("/");
@@ -59,21 +59,6 @@ const Login = () => {
     }
   }, [mutation.isSuccess]);
 
-  useEffect(() => {
-    const accessToken = document.cookie.replace(
-      /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
-    const refreshToken = document.cookie.replace(
-      /(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
-
-    if (accessToken && refreshToken) {
-      setIsLoggedIn(true);
-      navigate('/');
-    }
-  }, []);
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
