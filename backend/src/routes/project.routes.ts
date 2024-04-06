@@ -11,6 +11,7 @@ router.post(
   upload.array("projectImages"),
   addProject
 );
+
 router.get("/", fetchProjects);
 
 export default router;

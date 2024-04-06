@@ -56,18 +56,20 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   //Taking a cover-image, when registering
   const coverImageLocalPath = req.files as Express.Multer.File[];
-
+  console.log(coverImageLocalPath);
   if (!coverImageLocalPath) {
     throw new apiError(400, "Cover image is required");
   }
 
   //uploading it to cloudinary
   const coverImages = await uploadToCloudinary(coverImageLocalPath);
+  console.log(coverImages);
 
   if (!coverImages) {
     throw new apiError(500, "Failed to upload cover image(s)");
   }
   const coverImageUrls = coverImages.map((image) => image.url);
+  console.log(coverImageUrls);
 
   //creating a user by taking input from req.body and req.file
   const user = await User.create({
@@ -78,6 +80,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     username: username.toLowerCase(),
   });
 
+  console.log(user);
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
