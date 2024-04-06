@@ -6,7 +6,7 @@ const apiURL = import.meta.env.VITE_BACKEND_URL;
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
   try {
-    await axios
+    const response = await axios
       .post(`${apiURL}/api/v1/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -14,29 +14,33 @@ export const register = async (formData: FormData) => {
         withCredentials: true,
       })
       .then((res) => console.log(res.data))
-      .catch((error: Error) => console.error(error.stack));
+      .catch((error: Error) => console.error(error));
 
+    return response;
   } catch (error) {
     console.error(error);
     throw new Error("Something went wrong while registering");
   }
 };
 
-// export const refreshToken = async () => {
-//   try {
-//     const response = await axios.post(`${apiURL}/api/v1/users/refresh-token`, {
-//       withCredentials: true,
-//     });
+export const protectedRoute = async () => {
+  try {
+    const response = await axios.post(
+      `${apiURL}/api/v1/users/protected-route`,
+      {
+        withCredentials: true,
+      }
+    );
 
-//     if (response.status !== 200) {
-//       throw new Error("Something went wrong in fetching user details");
-//     }
+    if (response.status !== 200) {
+      throw new Error("Something went wrong in fetching user details");
+    }
 
-//     return response;
-//   } catch (error) {
-//     throw new Error("Error in fetching user details: " + error);
-//   }
-// };
+    return response;
+  } catch (error) {
+    throw new Error("Error in fetching user details: " + error);
+  }
+};
 
 export const login = async (data: LoginFormData) => {
   try {
@@ -77,13 +81,13 @@ export const addProject = async (formData: FormData) => {
         },
         withCredentials: true,
       })
-      .then((res) => console.log(res.data))
+      .then(res => console.log(res.data))
       .catch((error: Error) => console.error(error));
 
     return response;
   } catch (error) {
     console.error(error);
-    throw new Error("Something went wrong while adding project");
+    throw new Error("Something went wrong while adding project")
   }
 };
 

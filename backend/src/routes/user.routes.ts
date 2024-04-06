@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Router, Response } from "express";
 import {
   logOutUser,
   loginUser,
@@ -17,6 +17,7 @@ router.post("/login", loginUser);
 router.post("/logout", verifyJwt, logOutUser);
 
 //check for the user
-router.post("/refresh-token", verifyJwt, refreshAccessToken);
+router.post("/protected-route", verifyJwt, refreshAccessToken);
+
 
 export default router;

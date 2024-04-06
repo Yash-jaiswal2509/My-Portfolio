@@ -63,7 +63,7 @@ const Register = () => {
     formData.append("username", data.username);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append(`coverImage`, data.coverImage[0]);
+    formData.append(`coverImage`, data.coverImage[0], "userImage");
     mutation.mutate(formData);
   });
 

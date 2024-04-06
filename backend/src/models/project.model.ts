@@ -12,8 +12,4 @@ const projectSchema = new mongoose.Schema<ProjectType>(
   }
 );
 
-projectSchema.pre("save", async function (next) {
-  next();
-});
-
 export const Project = mongoose.model<ProjectType>("Projects", projectSchema);

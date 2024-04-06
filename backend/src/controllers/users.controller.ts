@@ -38,76 +38,60 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   */
 
   //This comes from client side or frontend
-  try {
-    const { fullName, username, email, password } = req.body;
-    // trim removes whitespace
-    if (
-      [fullName, username, email, password].some(
-        (field) => field?.trim() === ""
-      )
-    ) {
-      throw new apiError(400, "All fields are required");
-    }
-
-    const existingUser = await User.findOne({
-      $or: [{ username }, { email }],
-    });
-
-    if (existingUser) {
-      throw new apiError(409, "User already exists");
-    }
-
-    //Taking a cover-image, when registering
-    const coverImageLocalPath = req.files as Express.Multer.File[];
-    console.log(coverImageLocalPath);
-    if (!coverImageLocalPath) {
-      throw new apiError(400, "Cover image is required");
-    }
-
-    //uploading it to cloudinary
-    const coverImages = await uploadToCloudinary(coverImageLocalPath);
-    console.log(coverImages);
-
-    if (!coverImages) {
-      throw new apiError(500, "Failed to upload cover image(s)");
-    }
-    const coverImageUrls = coverImages.map((image) => image.url);
-    console.log(coverImageUrls);
-
-    //creating a user by taking input from req.body and req.file
-    const user = await User.create({
-      fullName,
-      coverImage: coverImageUrls,
-      email,
-      password,
-      username: username.toLowerCase(),
-    });
-
-    console.log(user);
-    const createdUser = await User.findById(user._id).select(
-      "-password -refreshToken"
-    );
-
-    if (!createdUser) {
-      throw new apiError(500, "Something went wrong while user registration");
-    }
-
-    //When user successfully registers we are sending response to client using createdUser in which we are not sending password and refresh token
-    res
-      .status(201)
-      .json(new apiResponse(200, createdUser, "User registered successfully"));
-  } catch (error) {
-    console.error("Error while registering", error);
-    res
-      .status(500)
-      .json(
-        new apiResponse(
-          500,
-          null,
-          "Failed to register. Please try again later."
-        )
-      );
+  const { fullName, username, email, password } = req.body;
+  // trim removes whitespace
+  if (
+    [fullName, username, email, password].some((field) => field?.trim() === "")
+  ) {
+    throw new apiError(400, "All fields are required");
   }
+
+  const existingUser = await User.findOne({
+    $or: [{ username }, { email }],
+  });
+
+  if (existingUser) {
+    throw new apiError(409, "User already exists");
+  }
+
+  //Taking a cover-image, when registering
+  const coverImageLocalPath = req.files as Express.Multer.File[];
+  console.log(coverImageLocalPath);
+
+  if (!coverImageLocalPath) {
+    throw new apiError(400, "Cover image is required");
+  }
+
+  //uploading it to cloudinary
+  const coverImages = await uploadToCloudinary(coverImageLocalPath);
+  console.log(coverImages);
+
+  if (!coverImages) {
+    throw new apiError(500, "Failed to upload cover image(s)");
+  }
+  const coverImageUrls = coverImages.map((image) => image.url);
+
+  //creating a user by taking input from req.body and req.file
+  const user = await User.create({
+    fullName,
+    coverImage: coverImageUrls,
+    email,
+    password,
+    username: username.toLowerCase(),
+  });
+
+  const createdUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
+
+  if (!createdUser) {
+    throw new apiError(500, "Something went wrong while user registration");
+  }
+
+  //When user successfully registers we are sending response to client using createdUser in which we are not sending password and refresh token
+  res
+    .status(201)
+    .json(new apiResponse(200, createdUser, "User registered successfully"));
 });
 
 //login

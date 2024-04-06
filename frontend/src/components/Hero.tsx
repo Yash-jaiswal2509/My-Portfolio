@@ -61,7 +61,7 @@ const Hero = () => {
             <span className="text-5xl font-semibold">{months}+</span>
           </div>
         </div>
-        <div className="p-5 sm:p-8 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
+        <div className="p-6 sm:p-10 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
           <h1 className="text-2xl font-semibold ">Featured Project</h1>
           <div className="grid grid-cols-2 gap-4 w-full">
             <img

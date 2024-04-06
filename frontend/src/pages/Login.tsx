@@ -51,14 +51,13 @@ const Login = () => {
     if (mutation.isSuccess) {
       setIsLoggedIn(true);
       setIsAdmin(
-        mutation.data?.data.data.user.username === "yashjai2509"
+        mutation.data?.data.data.user._id === "66045c9402f822aa92aeda55"
       );
       setUserDetail(mutation.data?.data);
       navigate("/");
-      toast.message("Successfully Logged In", { closeButton: true });
+      toast.message("Successfully Logged In",{closeButton:true});
     }
   }, [mutation.isSuccess]);
-
 
   return (
     <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
