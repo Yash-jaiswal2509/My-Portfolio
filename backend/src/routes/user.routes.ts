@@ -9,7 +9,7 @@ import { upload } from "../middlewares/multer.middleware";
 import { verifyJwt } from "../middlewares/auth.middleware";
 
 const router = Router();
-router.get("/register", upload.array("coverImage"), registerUser);
+router.post("/register", upload.array("coverImage"), registerUser);
 
 router.post("/login", loginUser);
 
