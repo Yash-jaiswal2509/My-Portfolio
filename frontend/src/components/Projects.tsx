@@ -1,8 +1,5 @@
-import { PlusCircle } from "lucide-react";
 import TechStack from "./TechStack";
 import { Button } from "./ui/button";
-import { useAuth } from "../lib/AuthProvider";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import * as ApiClient from "../api-client";
 import {
@@ -20,38 +17,15 @@ export type ProjectType = {
 };
 
 const Projects = () => {
-  const { isAdmin } = useAuth();
-
-  const navigate = useNavigate();
-
-  const {
-    data: ProjectsData,
-    isFetching,
-    isError: ProjectsDataError,
-  } = useQuery({
+  const { data: ProjectsData, isFetching } = useQuery({
     queryKey: ["fetchProjects"],
     queryFn: ApiClient.fetchProjects,
-    retry: 5,
   });
 
-  if (ProjectsDataError) {
-    return <blockquote>Something went wrong</blockquote>;
-  }
-
   return (
-    <div className="overflow-hidden flex flex-col w-fit">
+    <div className="flex flex-col w-full  overflow-hidden">
       <TechStack />
       <div className=" flex flex-col p-2 sm:p-5 ">
-        {isAdmin && (
-          <Button
-            variant="secondary"
-            className=" text-lg font-bold mb-4"
-            onClick={() => navigate("/add-project")}
-          >
-            Add Project <PlusCircle className="ml-2" />
-          </Button>
-        )}
-
         {isFetching ? (
           <div className="px-1 py-4 sm:py-0 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
             {[1, 2, 3, 4].map((index) => {

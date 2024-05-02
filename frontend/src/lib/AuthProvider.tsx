@@ -3,8 +3,6 @@ import { createContext, useState, useContext } from "react";
 type AuthContextProps = {
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
-  isAdmin: boolean;
-  setIsAdmin: (isAdmin: boolean) => void;
   userDetail: any;
   setUserDetail: (userDetail: any) => void;
 };
@@ -12,8 +10,6 @@ type AuthContextProps = {
 const initialState: AuthContextProps = {
   isLoggedIn: false,
   setIsLoggedIn: () => {},
-  isAdmin: false,
-  setIsAdmin: () => {},
   userDetail: null,
   setUserDetail: () => {},
 };
@@ -28,14 +24,11 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [userDetail, setUserDetail] = useState<any>("");
 
   const contextValue: AuthContextProps = {
     isLoggedIn,
     setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
-    isAdmin,
-    setIsAdmin: (value: boolean) => setIsAdmin(value),
     userDetail,
     setUserDetail: (value: any) => setUserDetail(value),
   };

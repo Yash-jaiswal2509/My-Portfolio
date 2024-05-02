@@ -23,25 +23,6 @@ export const register = async (formData: FormData) => {
   }
 };
 
-export const protectedRoute = async () => {
-  try {
-    const response = await axios.post(
-      `${apiURL}/api/v1/users/protected-route`,
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (response.status !== 200) {
-      throw new Error("Something went wrong in fetching user details");
-    }
-
-    return response;
-  } catch (error) {
-    throw new Error("Error in fetching user details: " + error);
-  }
-};
-
 export const login = async (data: LoginFormData) => {
   try {
     const response = await axios
@@ -60,12 +41,7 @@ export const login = async (data: LoginFormData) => {
 
 export const logout = async () => {
   try {
-    const response = await axios
-      .post(`${apiURL}/api/v1/users/logout`)
-      .catch((error) => {
-        console.error(error);
-      });
-
+    const response = await axios.post(`${apiURL}/api/v1/users/logout`);
     return response;
   } catch (error) {
     console.error(error);
@@ -81,13 +57,13 @@ export const addProject = async (formData: FormData) => {
         },
         withCredentials: true,
       })
-      .then(res => console.log(res.data))
+      .then((res) => console.log(res.data))
       .catch((error: Error) => console.error(error));
 
     return response;
   } catch (error) {
     console.error(error);
-    throw new Error("Something went wrong while adding project")
+    throw new Error("Something went wrong while adding project");
   }
 };
 

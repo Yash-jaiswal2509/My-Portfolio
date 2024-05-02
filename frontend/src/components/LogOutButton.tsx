@@ -16,9 +16,6 @@ const LogOutButton = () => {
       await queryClient.invalidateQueries({
         queryKey: ["protectedRoute"],
       });
-      toast("Logged Out Successfully!!!", {
-        closeButton: true,
-      });
     },
     onError: () => {
       throw new Error("Something while invalidating queries");
@@ -30,8 +27,11 @@ const LogOutButton = () => {
   };
 
   useEffect(() => {
-    if (mutation.isSuccess) {
+    if (mutation.data?.data.success) {
       setIsLoggedIn(false);
+      toast("Logged Out Successfully!!!", {
+        closeButton: true,
+      });
     }
   }, [mutation.isSuccess]);
 
