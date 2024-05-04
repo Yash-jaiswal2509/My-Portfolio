@@ -8,6 +8,7 @@ import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 declare module "express" {
   interface Request {
     user?: any;
+    roles?: string[];
   }
 }
 
@@ -15,6 +16,7 @@ export const verifyJwt = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     //provided cookie parser
     try {
+      //replacing "Bearer " with empty string as send in header
       const token = req.header("Authorization")?.replace("Bearer ", "");
       if (!token) {
         throw new apiError(401, "Unauthorized request");
@@ -35,8 +37,9 @@ export const verifyJwt = asyncHandler(
         throw new apiError(401, "Invalid access token");
       }
 
-      //assigning user in req
+      //assigning user and roles in req
       req.user = user;
+      req.roles = user.roles;
       next();
     } catch (error) {
       throw new apiError(401, (error as string) || "Invalid access token");
