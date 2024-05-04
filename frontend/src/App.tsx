@@ -6,8 +6,10 @@ import Login from "./pages/Login";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import AuthProvider from "./lib/AuthProvider.tsx";
 import AdminPanel from "./components/AdminPanel.tsx";
+import Unauthorized from "./components/Unauthorized.tsx";
+import AuthProvider from "./lib/AuthProvider.tsx";
+import ProtectedRoute from "./lib/Protected-Route.tsx";
 
 function App() {
   return (
@@ -20,10 +22,17 @@ function App() {
               <Route path="/" element={<Hero />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
 
               {/* Private Routes */}
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/admin" element={<AdminPanel />} />
+              <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+                <Route path="/projects" element={<Projects />} />
+              </Route>
+              <Route
+                element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
+              >
+                <Route path="/admin" element={<AdminPanel />} />
+              </Route>
             </Route>
 
             {/* Public Routes */}

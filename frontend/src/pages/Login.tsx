@@ -3,7 +3,7 @@ import { useTheme } from "@/lib/theme-provider";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
@@ -18,11 +18,14 @@ export type LoginFormData = {
 
 const Login = () => {
   const { theme } = useTheme();
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
-  const { setIsLoggedIn, setUserDetail } = useAuth();
-
+  const { setIsLoggedIn, setAuth } = useAuth();
   useEffect(() => {
     if (theme === "dark") {
       setToggleBg("#000000");
@@ -50,9 +53,12 @@ const Login = () => {
   useEffect(() => {
     if (mutation.data?.data.success) {
       setIsLoggedIn(true);
-      setUserDetail(mutation.data?.data);
-      navigate("/");
+      setAuth(mutation.data?.data.data);
+      console.log(mutation.data.data.data);
+      navigate(from, { replace: true });
       toast.message("Successfully Logged In", { closeButton: true });
+    } else {
+      console.log(mutation.error);
     }
   }, [mutation.isSuccess]);
 

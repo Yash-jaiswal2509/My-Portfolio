@@ -3,15 +3,15 @@ import { createContext, useState, useContext } from "react";
 type AuthContextProps = {
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
-  userDetail: any;
-  setUserDetail: (userDetail: any) => void;
+  auth: any;
+  setAuth: (auth: any) => void;
 };
 
 const initialState: AuthContextProps = {
   isLoggedIn: false,
   setIsLoggedIn: () => {},
-  userDetail: null,
-  setUserDetail: () => {},
+  auth: null,
+  setAuth: () => {},
 };
 
 //these are all the initialState which also matches the useState variables, so don't get confused
@@ -25,13 +25,13 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userDetail, setUserDetail] = useState<any>("");
-  
+  const [auth, setAuth] = useState<any>("");
+
   const contextValue: AuthContextProps = {
     isLoggedIn,
     setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
-    userDetail,
-    setUserDetail: (value: any) => setUserDetail(value),
+    auth,
+    setAuth: (value: any) => setAuth(value),
   };
 
   return (

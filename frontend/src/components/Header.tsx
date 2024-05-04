@@ -8,7 +8,7 @@ import LogOutButton from "./LogOutButton";
 import MenuButton from "./MenuButton";
 
 const Header = () => {
-  const { isLoggedIn, userDetail } = useAuth();
+  const { isLoggedIn, auth } = useAuth();
 
   return (
     <div className="p-2 sm:p-5 h-20 flex items-center justify-between shadow-sm shadow-gray-300 dark:shadow-slate-500 bg-gray-400/10">
@@ -39,9 +39,9 @@ const Header = () => {
         {isLoggedIn ? (
           <div className="flex gap-2 items-center">
             <LogOutButton />
-            {userDetail.data.user.coverImage ? (
+            {auth.user.coverImage ? (
               <img
-                src={userDetail.data.user.coverImage}
+                src={auth.user.coverImage}
                 alt="User-Image"
                 className=" w-10 h-10 sm:h-14 sm:w-14 hidden sm:block rounded-full"
               />
