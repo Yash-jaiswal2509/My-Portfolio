@@ -13,6 +13,7 @@ const generateAccessAndRefreshTokens = async (userId: string) => {
 
     const accessToken = await user.generateAccessToken();
     // console.log(accessToken);
+
     const refreshToken = await user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
@@ -56,20 +57,13 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   //Taking a cover-image, when registering
   const coverImageLocalPath = req.files as Express.Multer.File[];
-  console.log(coverImageLocalPath);
-
-  if (!coverImageLocalPath) {
-    throw new apiError(400, "Cover image is required");
-  }
 
   //uploading it to cloudinary
   const coverImages = await uploadToCloudinary(coverImageLocalPath);
-  console.log(coverImages);
 
-  if (!coverImages) {
-    throw new apiError(500, "Failed to upload cover image(s)");
-  }
-  const coverImageUrls = coverImages.map((image) => image.url);
+  const coverImageUrls = coverImages
+    ? coverImages.map((image) => image.url)
+    : [];
 
   //creating a user by taking input from req.body and req.file
   const user = await User.create({
@@ -93,6 +87,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     .status(201)
     .json(new apiResponse(200, createdUser, "User registered successfully"));
 });
+
 
 //login
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
@@ -122,7 +117,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(404, "User doesn't exists");
   }
 
-  //this is done while building model through
+  //this is done while building model
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
@@ -134,63 +129,82 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   );
 
   //sending data to client except password and refresh token
-  const loggedInUser = await User.findById(user._id.toString()).select(
-    "-password -refreshToken"
+  const loggedInUser = await User.findById(user._id).select(
+    "-fullName -email -password -refreshToken -__v -createdAt -updatedAt"
   );
 
   const options = {
     httpOnly: true,
     secure: true,
+    maxAge: 10 * 24 * 60 * 60 * 1000,
   };
 
   //sending tokens in form of cookies and data in form of json
   res
     .status(200)
-    .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
       new apiResponse(
         200,
-        { user: loggedInUser, accessToken, refreshToken },
+        { user: loggedInUser, accessToken },
         "User logged in Successfully"
       )
     );
 });
 
+
 //logout
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
-  const loggedOutUser = await User.findByIdAndUpdate(
-    req.user._id.toString(),
-    {
-      $set: {
-        refreshToken: undefined,
-      },
-    },
-    {
-      new: true,
-    }
-  );
+  // Delete access token in client side
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    throw new apiError(401, "Unauthorized request");
+  }
+
+  const decodedToken = jwt.verify(
+    refreshToken,
+    process.env.REFRESH_TOKEN_SECRET as Secret
+  ) as JwtPayload;
+
+  const userId = decodedToken._id;
+
+  const user = await User.findById(userId);
 
   const options = {
     httpOnly: true,
     secure: true,
   };
 
-  res
-    .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
-    .json(new apiResponse(200, {}, "User logged out"));
+  if (!user) {
+    res.clearCookie("refreshToken", options);
+    res.json(new apiResponse(204, "User successfully logged out"));
+  }
+
+  //This will only happen when either the refreshToken is expired or not present in the database
+  if (user?.refreshToken !== refreshToken) {
+    res.clearCookie("refreshToken", options);
+    res.json(new apiResponse(204, "User successfully logged out"));
+  }
+
+  //we found refreshToken in the user DB
+  if (user) {
+    user.refreshToken = "";
+    await user?.save({ validateBeforeSave: false });
+  }
+
+  res.clearCookie("refreshToken", options);
+  res.json(new apiResponse(204, "User successfully logged out"));
 });
+
 
 //refreshing token
 const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const incomingRefreshToken =
-      req.cookies.refreshToken || req.body.refreshToken;
+    const incomingRefreshToken = req.cookies.refreshToken;
 
     if (!incomingRefreshToken) {
-      throw new apiError(401, "unauthorized request");
+      throw new apiError(401, "Unauthorized request");
     }
 
     const decodedToken = jwt.verify(
@@ -199,6 +213,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
     ) as JwtPayload;
 
     const user = await User.findById(decodedToken?._id);
+
     if (!user) {
       throw new apiError(401, "Invalid refresh token");
     }
@@ -206,29 +221,13 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
     if (incomingRefreshToken !== user?.refreshToken) {
       throw new apiError(401, "Refresh token is expired or used");
     }
-    const userId = user?._id;
 
-    const options = {
-      httpOnly: true,
-      secure: true,
-    };
-
-    //asigning in objects property
-    const { accessToken, refreshToken: newRefreshtoken } =
-      await generateAccessAndRefreshTokens(user?._id);
-
+    const newAccessToken = await user.generateAccessToken();
     res
       .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", newRefreshtoken, options)
-      .json(
-        new apiResponse(
-          200,
-          { accessToken, newRefreshtoken, userId },
-          "Access token refreshed"
-        )
-      );
+      .json(new apiResponse(200, { newAccessToken }, "Access token refreshed"));
   } catch (error) {
+    //Fails to decode refresh token form cookies
     throw new apiError(401, (error as string) || "Invalid refresh token");
   }
 });

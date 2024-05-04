@@ -39,11 +39,16 @@ const Header = () => {
         {isLoggedIn ? (
           <div className="flex gap-2 items-center">
             <LogOutButton />
-            <img
-              src={userDetail.data.user.coverImage}
-              alt="User-Image"
-              className=" w-10 h-10 sm:h-14 sm:w-14 hidden sm:block rounded-full"
-            />
+            {userDetail.data.user.coverImage ? (
+              <img
+                src={userDetail.data.user.coverImage}
+                alt="User-Image"
+                className=" w-10 h-10 sm:h-14 sm:w-14 hidden sm:block rounded-full"
+              />
+            ) : (
+              // Default User Image
+              <></>
+            )}
           </div>
         ) : (
           <Link to="/login">

@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from "react";
 
 type AuthContextProps = {
+  apiURL: string;
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   userDetail: any;
@@ -8,6 +9,7 @@ type AuthContextProps = {
 };
 
 const initialState: AuthContextProps = {
+  apiURL: "",
   isLoggedIn: false,
   setIsLoggedIn: () => {},
   userDetail: null,
@@ -18,6 +20,7 @@ const initialState: AuthContextProps = {
 
 const AuthContext = createContext<AuthContextProps>(initialState);
 
+//wrapper for the AuthContext
 export default function AuthProvider({
   children,
 }: {
@@ -27,6 +30,7 @@ export default function AuthProvider({
   const [userDetail, setUserDetail] = useState<any>("");
 
   const contextValue: AuthContextProps = {
+    apiURL: import.meta.env.VITE_API_URL as string,
     isLoggedIn,
     setIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
     userDetail,

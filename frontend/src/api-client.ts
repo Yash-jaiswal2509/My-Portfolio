@@ -1,7 +1,8 @@
 import axios from "axios";
 import { LoginFormData } from "./pages/Login";
+import { useAuth } from "./lib/AuthProvider";
 
-const apiURL = import.meta.env.VITE_BACKEND_URL;
+const { apiURL } = useAuth();
 
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {

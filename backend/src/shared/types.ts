@@ -8,6 +8,7 @@ export interface UserDocument extends Document {
   password: string;
   coverImage: string;
   refreshToken: string;
+  roles: string[];
   isPasswordCorrect(password: string): Promise<boolean>;
   generateAccessToken(): Promise<string>;
   generateRefreshToken(): Promise<string>;

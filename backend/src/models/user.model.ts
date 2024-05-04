@@ -2,6 +2,7 @@ import mongoose, { Model } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { UserDocument } from "../shared/types";
+import { bool } from "sharp";
 
 interface UserModel extends Model<UserDocument> {}
 
@@ -11,8 +12,17 @@ const userSchema = new mongoose.Schema<UserDocument, UserModel>(
     username: { type: String, require: true, unique: true },
     email: { type: String, required: true },
     password: { type: String, required: [true, "Password is required"] },
-    coverImage: [{ type: String, required: true }],
+    coverImage: [{ type: String }],
     refreshToken: { type: String },
+    roles: {
+      type: [
+        {
+          type: String,
+          enum: ["user", "admin"],
+        },
+      ],
+      default: ["user"],
+    },
   },
   {
     timestamps: true,
@@ -39,6 +49,7 @@ userSchema.methods.generateAccessToken = async function (): Promise<string> {
       email: this.email,
       password: this.password,
       username: this.username,
+      roles: this.roles,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
 
