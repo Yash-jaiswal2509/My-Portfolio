@@ -1,4 +1,10 @@
-import { Contact2, Home, Projector, User } from "lucide-react";
+import {
+  Contact2,
+  Globe as Admin,
+  Home,
+  Projector as Projects,
+  User,
+} from "lucide-react";
 
 export const SideBarTypes = [
   {
@@ -7,7 +13,7 @@ export const SideBarTypes = [
     path: "/",
   },
   {
-    icon: Projector,
+    icon: Projects,
     name: "Projects",
     path: "/projects",
   },
@@ -20,5 +26,10 @@ export const SideBarTypes = [
     icon: Contact2,
     name: "Contact",
     path: "/contact",
+  },
+  {
+    icon: Admin,
+    name: "Admin",
+    path: "/admin",
   },
 ];

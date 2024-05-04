@@ -1,8 +1,7 @@
 import axios from "axios";
 import { LoginFormData } from "./pages/Login";
-import { useAuth } from "./lib/AuthProvider";
 
-const { apiURL } = useAuth();
+const apiURL = import.meta.env.VITE_API_URL as string;
 
 //you will have to change thing if you want the info, you will have to return the response
 export const register = async (formData: FormData) => {
