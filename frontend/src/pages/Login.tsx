@@ -26,6 +26,7 @@ const Login = () => {
   const [toggleBg, setToggleBg] = useState("#000000");
   const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
   const { setIsLoggedIn, setAuth } = useAuth();
+
   useEffect(() => {
     if (theme === "dark") {
       setToggleBg("#000000");

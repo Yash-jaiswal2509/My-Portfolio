@@ -20,12 +20,12 @@ const LogOutButton = () => {
   useEffect(() => {
     if (mutation.data?.data.success) {
       setIsLoggedIn(false);
-      setAuth("");
+      setAuth({});
       toast("Logged Out Successfully!!!", {
         closeButton: true,
       });
     }
-  }, [mutation.isSuccess, auth.accessToken, setIsLoggedIn, setAuth]);
+  }, [mutation.isSuccess, auth, setAuth, setIsLoggedIn]);
 
   return (
     <Button

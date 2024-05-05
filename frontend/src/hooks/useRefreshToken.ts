@@ -10,7 +10,7 @@ const useRefreshToken = () => {
     const response = await axios.get(`${apiURL}/api/v1/users/refresh-token`, {
       withCredentials: true,
     });
-    setAuth((prev: any) => {
+    setAuth((prev: {}) => {
       return {
         ...prev,
         accessToken: response.data.data.accessToken,
@@ -19,7 +19,6 @@ const useRefreshToken = () => {
     });
     return response.data.accessToken;
   };
-
   return refresh;
 };
 
