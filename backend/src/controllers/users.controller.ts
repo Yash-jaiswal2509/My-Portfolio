@@ -12,7 +12,6 @@ const generateTokensAndSetAdmin = async (userId: string) => {
     const user = (await User.findById(userId)) as UserDocument;
 
     const accessToken = await user.generateAccessToken();
-    // console.log(accessToken);
 
     if (user.username === "yashjai2509") {
       user.roles = ["admin", "user"];

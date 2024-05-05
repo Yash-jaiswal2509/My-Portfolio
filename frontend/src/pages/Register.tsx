@@ -57,6 +57,7 @@ const Register = () => {
     },
   });
 
+
   const onSubmit = handleSubmit((data: RegisterFormData) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);

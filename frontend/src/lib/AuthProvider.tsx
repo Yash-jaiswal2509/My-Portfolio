@@ -25,7 +25,7 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [auth, setAuth] = useState<any>("");
+  const [auth, setAuth] = useState<any>({});
 
   const contextValue: AuthContextProps = {
     isLoggedIn,

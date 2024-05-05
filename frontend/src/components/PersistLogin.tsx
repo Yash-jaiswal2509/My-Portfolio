@@ -9,18 +9,22 @@ const PersistLogin = () => {
   const { auth } = useAuth();
 
   useEffect(() => {
+    let isMounted = true;
     const verifyRefreshToken = async () => {
       try {
         await refresh();
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     };
 
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-  }, [auth?.accessToken]);
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
 };

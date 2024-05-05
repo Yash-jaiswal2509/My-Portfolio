@@ -48,7 +48,6 @@ export const logout = async (token: string) => {
       },
       withCredentials: true,
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);

@@ -25,7 +25,7 @@ const LogOutButton = () => {
         closeButton: true,
       });
     }
-  }, [mutation.isSuccess]);
+  }, [mutation.isSuccess, auth.accessToken, setIsLoggedIn, setAuth]);
 
   return (
     <Button
