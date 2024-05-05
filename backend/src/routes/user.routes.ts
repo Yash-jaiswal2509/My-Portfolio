@@ -14,9 +14,9 @@ router.post("/register", upload.array("coverImage"), registerUser);
 router.post("/login", loginUser);
 
 //secured through middleware
-router.post("/logout", verifyJwt, logOutUser);
+router.get("/logout", verifyJwt, logOutUser);
 
 //check for the user
-router.post("/refresh-token", refreshAccessToken);
+router.get("/refresh-token", refreshAccessToken);
 
 export default router;

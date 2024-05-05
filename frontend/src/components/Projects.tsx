@@ -1,7 +1,6 @@
 import TechStack from "./TechStack";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
-import * as ApiClient from "../api-client";
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 export type ProjectType = {
   title: string;
@@ -17,9 +17,26 @@ export type ProjectType = {
 };
 
 const Projects = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const apiURL = import.meta.env.VITE_API_URL as string;
+
+  const fetchProjects = async () => {
+    try {
+      const response = await axiosPrivate.get(`${apiURL}/api/v1/projects`);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error("Unexpected response status: " + response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      throw new Error("Failed to fetch projects. Please try again later.");
+    }
+  };
+
   const { data: ProjectsData, isFetching } = useQuery({
     queryKey: ["fetchProjects"],
-    queryFn: ApiClient.fetchProjects,
+    queryFn: fetchProjects,
   });
 
   return (

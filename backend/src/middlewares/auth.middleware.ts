@@ -18,6 +18,7 @@ export const verifyJwt = asyncHandler(
     try {
       //replacing "Bearer " with empty string as send in header
       const token = req.header("Authorization")?.replace("Bearer ", "");
+      
       if (!token) {
         throw new apiError(401, "Unauthorized request");
       }

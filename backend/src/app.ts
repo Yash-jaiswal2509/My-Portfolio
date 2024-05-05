@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.get("/", async (req: Request, res: Response) => {
   res.send({ message: "Hola amigo!!! This is the server for my PortFolio" });
 });
+
 app.get("/health", async (req: Request, res: Response) => {
   res.send({ message: "Health ok!" });
 });

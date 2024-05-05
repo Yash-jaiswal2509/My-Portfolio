@@ -14,7 +14,6 @@ const generateTokensAndSetAdmin = async (userId: string) => {
     const accessToken = await user.generateAccessToken();
     // console.log(accessToken);
 
-
     if (user.username === "yashjai2509") {
       user.roles = ["admin", "user"];
     }
@@ -159,14 +158,14 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 //logout
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   // Delete access token in client side
-  const refreshToken = req.cookies.refreshToken;
+  const incomingRefreshToken = req.cookies.refreshToken;
 
-  if (!refreshToken) {
-    throw new apiError(401, "Unauthorized request");
+  if (!incomingRefreshToken) {
+    throw new apiError(401, "No token in cookies");
   }
 
   const decodedToken = jwt.verify(
-    refreshToken,
+    incomingRefreshToken,
     process.env.REFRESH_TOKEN_SECRET as Secret
   ) as JwtPayload;
 
@@ -185,7 +184,7 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   }
 
   //This will only happen when either the refreshToken is expired or not present in the database
-  if (user?.refreshToken !== refreshToken) {
+  if (user?.refreshToken !== incomingRefreshToken) {
     res.clearCookie("refreshToken", options);
     res.json(new apiResponse(204, "User successfully logged out"));
   }
@@ -224,10 +223,18 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       throw new apiError(401, "Refresh token is expired or used");
     }
 
+    const roles = user.roles;
+
     const newAccessToken = await user.generateAccessToken();
     res
       .status(200)
-      .json(new apiResponse(200, { newAccessToken }, "Access token refreshed"));
+      .json(
+        new apiResponse(
+          200,
+          { accessToken: newAccessToken, roles },
+          "Access token refreshed"
+        )
+      );
   } catch (error) {
     //Fails to decode refresh token form cookies
     throw new apiError(401, (error as string) || "Invalid refresh token");

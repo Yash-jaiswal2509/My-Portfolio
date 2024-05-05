@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import * as ApiClient from "../api-client";
 import { toast } from "sonner";
@@ -7,28 +7,20 @@ import { useEffect } from "react";
 import { useAuth } from "@/lib/AuthProvider";
 
 const LogOutButton = () => {
-  const queryClient = useQueryClient();
-  const { setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn, auth, setAuth } = useAuth();
 
   const mutation = useMutation({
     mutationFn: ApiClient.logout,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ["protectedRoute"],
-      });
-    },
-    onError: () => {
-      throw new Error("Something while invalidating queries");
-    },
   });
 
   const handleClick = () => {
-    mutation.mutate();
+    mutation.mutate(auth.accessToken);
   };
 
   useEffect(() => {
     if (mutation.data?.data.success) {
       setIsLoggedIn(false);
+      setAuth("");
       toast("Logged Out Successfully!!!", {
         closeButton: true,
       });

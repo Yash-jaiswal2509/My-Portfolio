@@ -30,6 +30,7 @@ export const login = async (data: LoginFormData) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       })
       .catch((error: Error) => console.error(error));
 
@@ -39,9 +40,15 @@ export const login = async (data: LoginFormData) => {
   }
 };
 
-export const logout = async () => {
+export const logout = async (token: string) => {
   try {
-    const response = await axios.post(`${apiURL}/api/v1/users/logout`);
+    const response = await axios.get(`${apiURL}/api/v1/users/logout`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -64,21 +71,5 @@ export const addProject = async (formData: FormData) => {
   } catch (error) {
     console.error(error);
     throw new Error("Something went wrong while adding project");
-  }
-};
-
-export const fetchProjects = async () => {
-  try {
-    const response = await axios.get(`${apiURL}/api/v1/projects`, {
-      withCredentials: true,
-    });
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      throw new Error("Unexpected response status: " + response.status);
-    }
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    throw new Error("Failed to fetch projects. Please try again later.");
   }
 };

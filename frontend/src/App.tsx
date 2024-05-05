@@ -8,6 +8,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import AdminPanel from "./components/AdminPanel.tsx";
 import Unauthorized from "./components/Unauthorized.tsx";
+import PersistLogin from "./components/PersistLogin.tsx";
 import AuthProvider from "./lib/AuthProvider.tsx";
 import ProtectedRoute from "./lib/Protected-Route.tsx";
 
@@ -25,13 +26,16 @@ function App() {
               <Route path="/unauthorized" element={<Unauthorized />} />
 
               {/* Private Routes */}
-              <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
-                <Route path="/projects" element={<Projects />} />
-              </Route>
-              <Route
-                element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
-              >
-                <Route path="/admin" element={<AdminPanel />} />
+              <Route element={<PersistLogin />}>
+                <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+                  <Route path="/projects" element={<Projects />} />
+                </Route>
+
+                <Route
+                  element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
+                >
+                  <Route path="/admin" element={<AdminPanel />} />
+                </Route>
               </Route>
             </Route>
 
