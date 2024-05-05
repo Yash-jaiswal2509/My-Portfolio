@@ -1,12 +1,8 @@
 import { Router } from "express";
-import { addProject, fetchProjects } from "../controllers/projects.controller";
-import { upload } from "../middlewares/multer.middleware";
-import { verifyRoles } from "../middlewares/verifyRoles.middleware";
-import { verifyJwt } from "../middlewares/auth.middleware";
+import { fetchProjects } from "../controllers/projects.controller";
 
 const router = Router();
 
-router.post("/add-project", upload.array("projectImages"), addProject);
-router.get("/", verifyJwt, verifyRoles(["admin", "user"]), fetchProjects);
+router.get("/", fetchProjects);
 
 export default router;
