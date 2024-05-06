@@ -12,7 +12,7 @@ import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 export type ProjectType = {
   title: string;
-  description: string;
+  shortDescription: string;
   projectImages: string[];
 };
 
@@ -79,7 +79,7 @@ const Projects = () => {
                       {project.projectImages.map(
                         (image: string, index: number) => (
                           <CarouselItem key={index}>
-                            <img src={image} className=" h-56 w-full " />
+                            <img src={image} className=" h-52 w-full " />
                           </CarouselItem>
                         )
                       )}
@@ -88,10 +88,12 @@ const Projects = () => {
                   <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-2">
                     {project.title}
                   </h1>
-                  <p className="italic px-2 sm:px-4">{project.description}</p>
+                  <p className="italic text-sm px-2 sm:px-4">
+                    {project.shortDescription}
+                  </p>
                   <Button
                     variant="outline"
-                    className=" w-full text-sm lg:text-lg font-semibold hover:underline"
+                    className=" w-full mt-2 text-sm lg:text-lg font-semibold hover:underline"
                   >
                     View More
                   </Button>

@@ -28,6 +28,7 @@ const AddProject = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<ProjectFormData>();
 
   const addProject = async (formData: FormData) => {
@@ -63,25 +64,22 @@ const AddProject = () => {
 
     if (data.projectImages.length !== 0) {
       for (let index = 0; index < data.projectImages.length; index++) {
-        formdata.append(
-          "projectImages",
-          data.projectImages[index],
-          "projectImages"
-        );
+        formdata.append("projectImages", data.projectImages[index]);
       }
     }
     mutation.mutate(formdata);
   });
-
+  console.log(mutation.data);
   useEffect(() => {
     if (!auth) {
       navigate("/unauthorized");
     }
-
-    if (mutation.data) {
+    
+    if ((mutation.data as any)?.data?.success) {
       toast("Successfully Added Project!!", {
         closeButton: true,
       });
+      reset();
       navigate("/admin");
     }
 

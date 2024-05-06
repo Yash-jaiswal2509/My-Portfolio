@@ -30,8 +30,8 @@ const AdminPanel = () => {
   const projects = ProjectsData?.data || [];
 
   return (
-    <div className="w-[80%] py-6 px-4">
-      <h1 className=" text-center font-bold text-2xl">List Of The Projects</h1>
+    <div className=" w-full py-6 px-4">
+      <h1 className=" m-auto text-center font-bold text-2xl">List Of The Projects</h1>
       <div className="my-5">
         {isFetching ? (
           <p>Loading...</p>
@@ -45,10 +45,10 @@ const AdminPanel = () => {
                 <img
                   src={project.projectImages[0]}
                   alt={project.title}
-                  className="h-28 w-full bg-center object-cover"
+                  className=" h-full w-full rounded-md object-cover"
                 />
-                <h1 className=" m-auto">{project.title}</h1>
-                <span className=" m-auto">{project.description}</span>
+                <h1 className=" m-auto p-2">{project.title}</h1>
+                <span className=" m-auto">{project.shortDescription}</span>
                 <X className="w-6 h-6 m-auto cursor-pointer" />
               </li>
             ))}
