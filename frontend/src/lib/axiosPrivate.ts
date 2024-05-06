@@ -5,7 +5,7 @@ const baseURL = import.meta.env.VITE_API_URL;
 export const axiosPrivate = axios.create({
   baseURL: baseURL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json" || "multipart/form-data",
   },
   withCredentials: true,
 });

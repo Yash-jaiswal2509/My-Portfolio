@@ -57,7 +57,6 @@ const Register = () => {
     },
   });
 
-
   const onSubmit = handleSubmit((data: RegisterFormData) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);
@@ -109,10 +108,8 @@ const Register = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      className="mt-4 text-sm sm:text-base"
-                      {...register("coverImage", {
-                        required: "This field is required",
-                      })}
+                      className="mt-4 text-sm sm:text-base cursor-pointer"
+                      {...register("coverImage")}
                     />
                     {errors.coverImage && (
                       <span className="text-red-600 text-base">

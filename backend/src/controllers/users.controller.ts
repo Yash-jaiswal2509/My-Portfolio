@@ -159,7 +159,6 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   // Delete access token in client side
   const incomingRefreshToken = req.cookies.refreshToken;
-  console.log(incomingRefreshToken);
   if (!incomingRefreshToken) {
     throw new apiError(401, "No token in cookies");
   }
@@ -172,7 +171,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const userId = decodedToken._id;
 
   const user = await User.findById(userId);
-  console.log(user);
   if (!user) {
     throw new apiError(401, "Invalid refresh token, user not found");
   }

@@ -23,6 +23,9 @@ export const theme = {
     },
   },
   extend: {
+    gridTemplateColumns: {
+      list: "1fr 1fr 2fr 0.5fr",
+    },
     fontFamily: {
       inter: ['"Inter"'],
     },

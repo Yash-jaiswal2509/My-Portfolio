@@ -11,6 +11,7 @@ import Unauthorized from "./components/Unauthorized.tsx";
 import PersistLogin from "./components/PersistLogin.tsx";
 import AuthProvider from "./lib/AuthProvider.tsx";
 import ProtectedRoute from "./lib/Protected-Route.tsx";
+import AddProject from "./pages/Add-project.tsx";
 
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
                   element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
                 >
                   <Route path="/admin" element={<AdminPanel />} />
+                  <Route path="/admin/add-project" element={<AddProject />} />
                 </Route>
-              </Route>
+              </Route>              
             </Route>
 
             {/* Public Routes */}

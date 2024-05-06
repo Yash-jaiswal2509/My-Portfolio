@@ -34,7 +34,6 @@ const LogOutButton = () => {
   };
 
   useEffect(() => {
-    console.log(mutation.data?.data.success);
     if (mutation.data?.data.success) {
       setIsLoggedIn(false);
       setAuth({});

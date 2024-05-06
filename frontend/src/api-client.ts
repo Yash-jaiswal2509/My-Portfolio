@@ -40,21 +40,4 @@ export const login = async (data: LoginFormData) => {
   }
 };
 
-export const addProject = async (formData: FormData) => {
-  try {
-    const response = await axios
-      .post(`${apiURL}/api/v1/projects/add-project`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      })
-      .then((res) => console.log(res.data))
-      .catch((error: Error) => console.error(error));
 
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Something went wrong while adding project");
-  }
-};
