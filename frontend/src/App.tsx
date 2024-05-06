@@ -29,13 +29,12 @@ function App() {
 
               {/* Private Routes */}
               <Route element={<PersistLogin />}>
-                <Route
-                  element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
-                >
+                <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
                   <Route path="/admin" element={<AdminPanel />} />
                   <Route path="/admin/add-project" element={<AddProject />} />
                 </Route>
-              </Route>              
+                {/* Individual project route to be added */}
+              </Route>
             </Route>
 
             {/* Public Routes */}

@@ -14,7 +14,7 @@ const generateTokensAndSetAdmin = async (userId: string) => {
     const accessToken = await user.generateAccessToken();
 
     if (user.username === "yashjai2509") {
-      user.roles = ["admin", "user"];
+      user.roles = ["admin"];
     }
 
     const refreshToken = await user.generateRefreshToken();

@@ -10,11 +10,11 @@ const router = express.Router();
 router.post(
   "/add-project",
   verifyJwt,
-  verifyRoles(["admin", "user"]),
+  verifyRoles(["admin"]),
   upload.array("projectImages"),
   addProject
 );
 
-router.post("/", verifyJwt, verifyRoles(["admin", "user"]), fetchProjects);
+router.post("/", verifyJwt, verifyRoles(["admin"]), fetchProjects);
 
 export default router;
