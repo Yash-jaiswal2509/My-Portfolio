@@ -135,9 +135,10 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     "-fullName -email -password -refreshToken -__v -createdAt -updatedAt"
   );
 
-  const options = {
+  const options: CookieOptions = {
     httpOnly: true,
     secure: true,
+    sameSite: "none",
     maxAge: 10 * 24 * 60 * 60 * 1000,
   };
 
@@ -158,7 +159,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   // Delete access token in client side
   const incomingRefreshToken = req.cookies.refreshToken;
-
+  console.log(incomingRefreshToken);
   if (!incomingRefreshToken) {
     throw new apiError(401, "No token in cookies");
   }
@@ -171,7 +172,7 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const userId = decodedToken._id;
 
   const user = await User.findById(userId);
-
+  console.log(user);
   if (!user) {
     throw new apiError(401, "Invalid refresh token, user not found");
   }
@@ -183,7 +184,7 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const options: CookieOptions = {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
   };
 
   user.refreshToken = "";
