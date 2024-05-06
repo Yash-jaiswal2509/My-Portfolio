@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import { apiResponse } from "../utils/apiResponse";
 import { apiError } from "../utils/apiError";
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { uploadToCloudinary } from "../utils/cloudinary";
 import { User } from "../models/user.model";
@@ -158,7 +158,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   // Delete access token in client side
   const incomingRefreshToken = req.cookies.refreshToken;
-  console.log(incomingRefreshToken);
+
   if (!incomingRefreshToken) {
     throw new apiError(401, "No token in cookies");
   }
@@ -171,7 +171,7 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const userId = decodedToken._id;
 
   const user = await User.findById(userId);
-  console.log(user);
+
   if (!user) {
     throw new apiError(401, "Invalid refresh token, user not found");
   }
@@ -180,11 +180,12 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
     throw new apiError(401, "Invalid refresh token");
   }
 
-  const options = {
+  const options: CookieOptions = {
     httpOnly: true,
     secure: true,
+    sameSite: "lax",
   };
-  
+
   user.refreshToken = "";
   await user?.save({ validateBeforeSave: false });
   res.clearCookie("refreshToken", options);
