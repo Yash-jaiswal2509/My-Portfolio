@@ -40,20 +40,6 @@ export const login = async (data: LoginFormData) => {
   }
 };
 
-export const logout = async (token: string) => {
-  try {
-    const response = await axios.get(`${apiURL}/api/v1/users/logout`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    });
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const addProject = async (formData: FormData) => {
   try {
     const response = await axios

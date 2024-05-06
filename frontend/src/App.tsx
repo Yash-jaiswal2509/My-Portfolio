@@ -23,14 +23,11 @@ function App() {
               <Route path="/" element={<Hero />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
 
               {/* Private Routes */}
               <Route element={<PersistLogin />}>
-                <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
-                  <Route path="/projects" element={<Projects />} />
-                </Route>
-
                 <Route
                   element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
                 >

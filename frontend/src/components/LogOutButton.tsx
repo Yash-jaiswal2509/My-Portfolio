@@ -1,23 +1,40 @@
+import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "./ui/button";
-import * as ApiClient from "../api-client";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
-import { useEffect } from "react";
 import { useAuth } from "@/lib/AuthProvider";
+import { useEffect } from "react";
 
 const LogOutButton = () => {
   const { setIsLoggedIn, auth, setAuth } = useAuth();
+  const apiURL = import.meta.env.VITE_API_URL as string;
+  const token = auth.accessToken;
+
+  const logout = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/api/v1/users/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const mutation = useMutation({
-    mutationFn: ApiClient.logout,
+    mutationFn: logout,
   });
 
   const handleClick = () => {
-    mutation.mutate(auth.accessToken);
+    mutation.mutate();
   };
 
   useEffect(() => {
+    console.log(mutation.data?.data.success);
     if (mutation.data?.data.success) {
       setIsLoggedIn(false);
       setAuth({});
@@ -25,7 +42,7 @@ const LogOutButton = () => {
         closeButton: true,
       });
     }
-  }, [mutation.isSuccess, auth, setAuth, setIsLoggedIn]);
+  }, [mutation.data?.data.success, setIsLoggedIn, setAuth]);
 
   return (
     <Button
@@ -33,7 +50,8 @@ const LogOutButton = () => {
       onClick={handleClick}
       className="mx-4 text-lg font-bold  hover:shadow-lg hidden sm:flex bg-white dark:bg-slate-900"
     >
-      Log out <LogOut className="ml-2" size={22} />
+      {mutation.isPending ? "Loggin Out..." : "Log out"}
+      <LogOut className="ml-2" size={22} />
     </Button>
   );
 };

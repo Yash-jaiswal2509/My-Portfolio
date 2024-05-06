@@ -158,7 +158,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   // Delete access token in client side
   const incomingRefreshToken = req.cookies.refreshToken;
-
+  console.log(incomingRefreshToken);
   if (!incomingRefreshToken) {
     throw new apiError(401, "No token in cookies");
   }
@@ -171,29 +171,22 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
   const userId = decodedToken._id;
 
   const user = await User.findById(userId);
+  console.log(user);
+  if (!user) {
+    throw new apiError(401, "Invalid refresh token, user not found");
+  }
+
+  if (user?.refreshToken !== incomingRefreshToken) {
+    throw new apiError(401, "Invalid refresh token");
+  }
 
   const options = {
     httpOnly: true,
     secure: true,
   };
-
-  if (!user) {
-    res.clearCookie("refreshToken", options);
-    res.json(new apiResponse(204, "User successfully logged out"));
-  }
-
-  //This will only happen when either the refreshToken is expired or not present in the database
-  if (user?.refreshToken !== incomingRefreshToken) {
-    res.clearCookie("refreshToken", options);
-    res.json(new apiResponse(204, "User successfully logged out"));
-  }
-
-  //we found refreshToken in the user DB
-  if (user) {
-    user.refreshToken = "";
-    await user?.save({ validateBeforeSave: false });
-  }
-
+  
+  user.refreshToken = "";
+  await user?.save({ validateBeforeSave: false });
   res.clearCookie("refreshToken", options);
   res.json(new apiResponse(204, "User successfully logged out"));
 });
