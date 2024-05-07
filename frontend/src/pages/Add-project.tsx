@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { axiosPrivate } from "@/lib/axiosPrivate";
 import { useAuth } from "@/lib/AuthProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import axios from "axios";
 
 export type ProjectFormData = {
@@ -22,7 +22,7 @@ const AddProject = () => {
   const { auth } = useAuth();
   const apiURL = import.meta.env.VITE_API_URL as string;
   const navigate = useNavigate();
-
+  const [project, setProject] = useState<any>({});
   const token = auth?.accessToken;
   const {
     register,
@@ -39,7 +39,7 @@ const AddProject = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => console.log(res.data))
+        .then((res) => setProject(res.data))
         .catch((error: Error) => console.error(error));
 
       return response;
@@ -69,13 +69,14 @@ const AddProject = () => {
     }
     mutation.mutate(formdata);
   });
-  console.log(mutation.data);
+
+  console.log(project);
   useEffect(() => {
     if (!auth) {
       navigate("/unauthorized");
     }
 
-    if ((mutation.data as any)?.data?.success) {
+    if (project.success) {
       toast("Successfully Added Project!!", {
         closeButton: true,
       });
@@ -83,12 +84,12 @@ const AddProject = () => {
       navigate("/admin");
     }
 
-    if (mutation.isError) {
+    if (mutation.error) {
       toast(`${mutation.error?.message}`, {
         closeButton: true,
       });
     }
-  }, [auth, mutation.isSuccess, token, mutation.isError]);
+  }, [auth, project, token, setProject]);
 
   return (
     <div className="p-10 w-full">
