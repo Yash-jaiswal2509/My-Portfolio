@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Skeleton } from "@/components/ui/skeleton";
-import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import axios from "axios";
 
 export type ProjectType = {
   title: string;
@@ -17,12 +17,15 @@ export type ProjectType = {
 };
 
 const Projects = () => {
-  const axiosPrivate = useAxiosPrivate();
   const apiURL = import.meta.env.VITE_API_URL as string;
 
   const fetchProjects = async () => {
     try {
-      const response = await axiosPrivate.get(`${apiURL}/api/v1/projects`);
+      const response = await axios.get(`${apiURL}/api/v1/projects`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         return response.data;
       } else {

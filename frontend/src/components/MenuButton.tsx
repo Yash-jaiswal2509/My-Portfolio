@@ -67,7 +67,7 @@ const MenuButton = () => {
             <button>{items.name}</button>
           </DropdownMenuItem>
         ))}
-        <DropdownMenuSeparator color="gray"  />
+        <DropdownMenuSeparator color="gray" />
         <DropdownMenuLabel className="flex gap-2 text-base text-gray-500">
           <Settings size={18} />
           Settings
@@ -95,11 +95,17 @@ const MenuButton = () => {
         </DropdownMenuItem>
         <DropdownMenuItem className="w-full">
           {isLoggedIn ? (
-            <LogOutButton />
+            <div className="w-full">
+              <LogOutButton />
+            </div>
           ) : (
-            <Button variant="outline" className="text-lg font-bold w-full dark:bg-slate-900">
+            <Button
+              variant="outline"
+              className="text-lg font-bold w-full dark:bg-slate-900"
+            >
               <Link to="/login" className="flex">
-              <LogIn className="mr-2" />Login 
+                <LogIn className="mr-2" />
+                Login
               </Link>
             </Button>
           )}

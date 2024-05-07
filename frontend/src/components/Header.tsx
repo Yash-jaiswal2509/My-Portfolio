@@ -37,7 +37,7 @@ const Header = () => {
         </div>
         <ModeToggle />
         {isLoggedIn ? (
-          <div className="flex gap-2 items-center">
+          <div className="gap-2 items-center hidden sm:flex">
             <LogOutButton />
             {auth.user.coverImage ? (
               <img

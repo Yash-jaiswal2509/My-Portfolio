@@ -35,7 +35,7 @@ const Login = () => {
       setToggleBg("#ffffff"); // Set to light theme background color
       setToggleParColor("#000000"); // Set to light theme particle color
     }
-  }, [theme]);
+  }, [theme, setToggleBg, setToggleParColor, toggleBg, toggleParticleColor]);
 
   const {
     register,

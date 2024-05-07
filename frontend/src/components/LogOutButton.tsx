@@ -47,7 +47,7 @@ const LogOutButton = () => {
     <Button
       variant="outline"
       onClick={handleClick}
-      className="mx-4 text-lg font-bold  hover:shadow-lg hidden sm:flex bg-white dark:bg-slate-900"
+      className="sm:mx-4 text-lg font-bold w-full h-full hover:shadow-lg sm:flex bg-white dark:bg-slate-900"
     >
       {mutation.isPending ? "Loggin Out..." : "Log out"}
       <LogOut className="ml-2" size={22} />

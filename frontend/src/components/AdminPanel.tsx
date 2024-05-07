@@ -11,7 +11,11 @@ const AdminPanel = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axiosPrivate.get(`${apiURL}/api/v1/projects`);
+      const response = await axiosPrivate.get(`${apiURL}/api/v1/projects`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         return response.data;
       } else {
@@ -31,7 +35,9 @@ const AdminPanel = () => {
 
   return (
     <div className=" w-full py-6 px-4">
-      <h1 className=" m-auto text-center font-bold text-2xl">List Of The Projects</h1>
+      <h1 className=" m-auto text-center font-bold text-2xl">
+        List Of The Projects
+      </h1>
       <div className="my-5">
         {isFetching ? (
           <p>Loading...</p>

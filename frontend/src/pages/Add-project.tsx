@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-// import { axiosPrivate } from "@/lib/axiosPrivate";
+import { axiosPrivate } from "@/lib/axiosPrivate";
 import { useAuth } from "@/lib/AuthProvider";
 import { useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 export type ProjectFormData = {
   title: string;
@@ -33,7 +33,7 @@ const AddProject = () => {
 
   const addProject = async (formData: FormData) => {
     try {
-      const response = await axios
+      const response = await axiosPrivate
         .post(`${apiURL}/api/v1/admin/add-project`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ const AddProject = () => {
     if (!auth) {
       navigate("/unauthorized");
     }
-    
+
     if ((mutation.data as any)?.data?.success) {
       toast("Successfully Added Project!!", {
         closeButton: true,
