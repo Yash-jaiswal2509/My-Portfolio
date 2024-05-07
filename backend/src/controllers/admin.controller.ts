@@ -15,6 +15,15 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
     featured,
   } = req.body;
 
+  console.log(
+    title,
+    shortDescription,
+    longDescription,
+    deploymentLink,
+    githubLink,
+    featured
+  );
+
   if (
     [title, shortDescription, longDescription].some(
       (field) => field?.trim() === ""
@@ -32,17 +41,20 @@ export const addProject = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const projectImagePath = req.files as Express.Multer.File[];
-
+  console.log(projectImagePath);
   if (!projectImagePath) {
     throw new apiError(400, "Project image is required");
   }
 
-  const projectImages = await uploadToCloudinary(projectImagePath);
+  const projectImagesURLArray = await uploadToCloudinary(projectImagePath);
+  console.log(projectImagesURLArray);
 
-  if (!projectImages) {
+  if (!projectImagesURLArray) {
     throw new apiError(500, "Failed to upload project image(s)");
   }
-  const projectImageUrls = projectImages.map((image) => image.url);
+
+  const projectImageUrls = projectImagesURLArray.map((image) => image.url);
+  console.log(projectImageUrls);
 
   const project = await Project.create({
     title,
