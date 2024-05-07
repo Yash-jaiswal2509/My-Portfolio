@@ -88,15 +88,15 @@ const Projects = () => {
                       )}
                     </CarouselContent>
                   </Carousel>
-                  <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-2">
+                  <h1 className="text-lg lg:text-2xl px-2 sm:px-4 font-semibold mt-4">
                     {project.title}
                   </h1>
-                  <p className="italic text-sm px-2 sm:px-4">
+                  <p className="italic mt-auto text-sm px-2 sm:px-4">
                     {project.shortDescription}
                   </p>
                   <Button
                     variant="outline"
-                    className=" w-full mt-2 text-sm lg:text-lg font-semibold hover:underline"
+                    className=" w-full mt-auto text-sm lg:text-lg font-semibold hover:underline"
                   >
                     View More
                   </Button>
