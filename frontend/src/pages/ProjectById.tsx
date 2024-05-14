@@ -46,7 +46,7 @@ const ProjectById = () => {
         <>Loading</>
       ) : (
         <div className="p-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl">
-          <div className="grid grid-cols-2 gap-4 p-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-3">
             <Carousel
               className="shadow-lg dark:shadow-white/20 rounded-lg sm:rounded-xl overflow-hidden"
               plugins={[
@@ -73,31 +73,49 @@ const ProjectById = () => {
                 Important Links
               </h1>
               <div className="flex gap-3 mt-4">
-                <a href={Project.data?.deploymentLink} target="_blank" className="px-10 py-8 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer">
-                  <Globe size={"35"} className="hover:scale-110" />
-                  <p className="hover:scale-105 text-xl mt-4">
+                <a
+                  href={Project.data?.deploymentLink}
+                  target="_blank"
+                  className="sm:px-10 sm:py-8 px-6 py-5 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer"
+                >
+                  <Globe
+                    size={"35"}
+                    className="hover:scale-110"
+                  />
+                  <p className="hover:scale-105 text-base sm:text-xl mt-4 text-center">
                     Deployment Link
                   </p>
                 </a>
-                <a href={Project.data?.githubLink} target="_blank" className="px-10 py-8 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer">
-                  <GithubIcon size={"35"} className="hover:scale-110" />
-                  <p className="hover:scale-105 text-xl mt-4">Github Link</p>
+                <a
+                  href={Project.data?.githubLink}
+                  target="_blank"
+                  className="sm:px-10 sm:py-8 px-6 py-5 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer"
+                >
+                  <GithubIcon
+                    size={"35"}
+                    className="hover:scale-110"
+                  />
+                  <p className="hover:scale-105 text-base sm:text-xl mt-4 text-center">
+                    Github Link
+                  </p>
                 </a>
               </div>
             </div>
           </div>
-          <h1 className="mx-4 mt-5 text-4xl font-bold">{Project.data.title}</h1>
-          <div className="flex flex-wrap gap-3 mx-6 mt-4">
+          <h1 className="mx-4 mt-5 text-3xl sm:text-4xl font-bold">
+            {Project.data.title}
+          </h1>
+          <div className="flex flex-wrap gap-x-1 gap-y-2 sm:gap-x-3 sm:gap-y-3 mx-4 sm:mx-6 mt-4">
             {Project.data.techStack.map((tech: string, index: number) => (
               <span
                 key={index}
-                className="bg-gray-400/20 dark:bg-gray-900/70 rounded-md sm:rounded-xl px-4 py-2"
+                className="bg-gray-400/20 dark:bg-gray-900/70 rounded-md sm:rounded-xl px-4 py-2 sm:text-base text-sm"
               >
                 {tech}
               </span>
             ))}
           </div>
-          <div className="mx-2 my-4 text-justify bg-gray-400/20 dark:bg-gray-900/60 rounded-md sm:rounded-xl p-4">
+          <div className="mx-2 my-4 text-xs whitespace-pre-line sm:text-base text-justify bg-gray-400/20 dark:bg-gray-900/60 rounded-md sm:rounded-xl p-4">
             {Project.data.longDescription}
           </div>
         </div>

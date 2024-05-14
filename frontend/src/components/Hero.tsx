@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ArrowRightToLine } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "./ui/skeleton";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -91,25 +92,33 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="p-6 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/25 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
-          <h1 className="text-2xl font-bold ">Featured Project</h1>
-          <img
-            src={featuredProjectData?.projectImages[0]}
-            alt="Thumbnail"
-            className="h-full w-full rounded-lg shadow-lg dark:shadow-gray-600"
-          />
-          <p className="text-xs h-10 w-[480px] italic truncate sm:text-base text-justify">
-            {featuredProjectData?.shortDescription}
-          </p>
-          <Button
-            onClick={() => navigate(`/projects/${featuredProjectData._id}`)}
-            className="mt-1 text-lg font-extrabold"
-            variant="outline"
-          >
-            Explore
-            <ArrowRightToLine size={20} strokeWidth={3} className="ml-1" />
-          </Button>
-        </div>
+        {isFetching ? (
+          <div className="p-6 flex flex-col gap-3">
+            <Skeleton className="h-56 w-full" />
+            <Skeleton className="h-14 w-full" />
+            <Skeleton className="h-12 w-full" />
+          </div>
+        ) : (
+          <div className="p-6 h-full flex flex-col bg-gray-400/10 dark:bg-gray-900/25 rounded-xl gap-2 shadow-md dark:shadow-white/20 ">
+            <h1 className="text-2xl font-bold ">Featured Project</h1>
+            <img
+              src={featuredProjectData?.projectImages[0]}
+              alt="Thumbnail"
+              className="h-full w-full rounded-lg shadow-lg dark:shadow-gray-600"
+            />
+            <p className="text-xs sm:h-10 md:w-[max(80vw,480px)] lg:w-[max(67vw,480px)] xl:w-[max(30vw,480px)] italic truncate sm:text-base text-justify mt-3">
+              {featuredProjectData?.shortDescription}
+            </p>
+            <Button
+              onClick={() => navigate(`/projects/${featuredProjectData._id}`)}
+              className="mt-1 sm:text-lg font-extrabold"
+              variant="outline"
+            >
+              Explore
+              <ArrowRightToLine size={20} strokeWidth={3} className="ml-1" />
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="w-full px-1 sm:px-4 py-6 flex flex-col bg-gray-400/10 dark:bg-gray-900/25 rounded-xl gap-3 shadow-md dark:shadow-white/20">
@@ -155,19 +164,17 @@ const Hero = () => {
             <p className="hidden sm:block">
               Coding, programming and web development
             </p>
-            <p className="sm:hidden">Coding, programing, web development</p>
+            <p className="sm:hidden truncate">Coding, programing, web development</p>
           </h1>
           <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700/50 dark:hover:bg-slate-900">
             Email: yashjaiswal2509@gmail.com
           </h1>
           <div className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700/50 dark:hover:bg-slate-900 flex flex-col gap-2">
-            <p className=" text-xl text-center">Summary</p>
-            <p className="text-wrap text-center">
-              I'm a Fullstack Developer specializing in the MERN Stack, adeptly
-              translates mockups into responsive interfaces. Proficient in Java,
+            <p className=" text-xl font-semibold text-center">Summary</p>
+            <p className="text-wrap text-justify">
+              I'm a Fullstack Developer specializing in the MERN Stack, adeptly translates mockups into responsive interfaces. Proficient in Java,
               JavaScript, HTML, CSS, and TypeScript, also works with backend
-              technologies like Node.js and MongoDB. Frameworks such as Tailwind
-              CSS, React.js, Next.js, and Express.js are part of my toolkit.
+              technologies like Node.js and MongoDB. Frameworks such as TailwindCss, React.js, Next.js, and Express.js are part of my toolkit.
             </p>
             <p
               onClick={() => navigate("/about")}
