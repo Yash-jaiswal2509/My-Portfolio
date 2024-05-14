@@ -10,7 +10,7 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
   const location = useLocation();
 
   const assignedRoles = auth?.user?.roles || [""];
-
+  console.log(auth?.user);
   return assignedRoles.find((role: string) => allowedRoles.includes(role)) ? (
     <Outlet />
   ) : auth?.user ? (

@@ -195,7 +195,6 @@ const logOutUser = asyncHandler(async (req: Request, res: Response) => {
 const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
   try {
     const incomingRefreshToken = req.cookies.refreshToken;
-
     if (!incomingRefreshToken) {
       throw new apiError(401, "Unauthorized request");
     }
@@ -206,7 +205,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
     ) as JwtPayload;
 
     const user = await User.findById(decodedToken?._id).select(
-      "-fullName -email -password -refreshToken -__v -createdAt -updatedAt"
+      "-fullName -password -__v -createdAt -updatedAt"
     );
 
     if (!user) {
@@ -218,7 +217,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
     }
 
     const roles = user.roles;
-
+    await user.save();
     const newAccessToken = await user.generateAccessToken();
     res
       .status(200)

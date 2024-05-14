@@ -7,18 +7,32 @@ const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.get(`${apiURL}/api/v1/users/refresh-token`, {
-      withCredentials: true,
-    });
-    setAuth((prev: {}) => {
-      return {
-        ...prev,
-        accessToken: response.data.data.accessToken,
-        roles: response.data.data.roles,
-      };
-    });
-    return response.data.accessToken;
+    try {
+      const response = await axios.get(`${apiURL}/api/v1/users/refresh-token`, {
+        withCredentials: true,
+      });
+
+      setAuth((prevAuth: any) => {
+        console.log("Previous auth state:", prevAuth);
+
+        const updatedAuth = {
+          ...prevAuth,
+          accessToken: response.data.data.accessToken,
+          roles: response.data.data.roles,
+        };
+
+        console.log("Updated auth state:", updatedAuth);
+
+        return updatedAuth;
+      });
+
+      return response.data.data.accessToken;
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+      throw error;
+    }
   };
+
   return refresh;
 };
 

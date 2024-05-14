@@ -55,6 +55,7 @@ const Login = () => {
     if (mutation.data?.data.success) {
       setIsLoggedIn(true);
       setAuth(mutation.data?.data.data);
+      console.log(mutation.data?.data.data);
       navigate(from, { replace: true });
       toast.message("Successfully Logged In", { closeButton: true });
     }
