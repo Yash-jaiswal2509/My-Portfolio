@@ -7,6 +7,7 @@ const projectSchema = new mongoose.Schema<ProjectType>(
     shortDescription: { type: String, required: true },
     longDescription: { type: String, required: true },
     projectImages: [{ type: String, required: true }],
+    techStack: [{ type: String, required: true }],
     deploymentLink: { type: String },
     githubLink: { type: String },
     featured: { type: Boolean },

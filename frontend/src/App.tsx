@@ -12,6 +12,7 @@ import PersistLogin from "./components/PersistLogin.tsx";
 import AuthProvider from "./lib/AuthProvider.tsx";
 import ProtectedRoute from "./lib/Protected-Route.tsx";
 import AddProject from "./pages/Add-project.tsx";
+import ProjectById from "./pages/ProjectById.tsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:projectId" element={<ProjectById />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
 
               {/* Private Routes */}

@@ -53,9 +53,9 @@ const AdminPanel = () => {
                   alt={project.title}
                   className=" h-full w-full rounded-md object-cover"
                 />
-                <h1 className=" m-auto p-2">{project.title}</h1>
-                <span className=" m-auto">{project.shortDescription}</span>
-                <X className="w-6 h-6 m-auto cursor-pointer" />
+                <h1 className="m-auto p-2">{project.title}</h1>
+                <span className="m-auto text-justify">{project.shortDescription}</span>
+                <X className="w-8 h-6 m-auto cursor-pointer" />
               </li>
             ))}
           </ul>

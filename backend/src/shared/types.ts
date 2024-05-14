@@ -19,6 +19,7 @@ export type ProjectType = {
   shortDescription: string;
   longDescription: string;
   projectImages: string[];
+  techStack: string[];
   deploymentLink: string;
   githubLink: string;
   featured: boolean;
