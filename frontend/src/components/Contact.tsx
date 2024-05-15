@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Contact = () => {
   type FromData = {
@@ -16,6 +17,7 @@ const Contact = () => {
     message: string;
   };
 
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<FromData>({
     fullName: "",
     email: "",
@@ -31,6 +33,8 @@ const Contact = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
     const formData = new FormData(e.target as HTMLFormElement);
     formData.append("fullName", data.fullName);
     formData.append("email", data.email);
@@ -51,9 +55,11 @@ const Contact = () => {
     }).then((res) => res.json());
 
     if (res.success) {
-      console.log("Success", res);
+      toast.success("Mail sent successfully", {
+        closeButton: true,
+      });
     }
-
+    setLoading(false);
     setData({ fullName: "", email: "", subject: "", message: "" });
   };
 
@@ -186,7 +192,7 @@ const Contact = () => {
           variant="outline"
           className="mt-4 text-lg font-bold flex gap-1 items-center"
         >
-          Submit Form <ArrowRightCircle />
+          {loading ? "Submitting..." : "Submit Form"} <ArrowRightCircle />
         </Button>
       </form>
     </div>

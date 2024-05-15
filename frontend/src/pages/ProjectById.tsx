@@ -3,6 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Autoplay from "embla-carousel-autoplay";
@@ -43,7 +44,19 @@ const ProjectById = () => {
   return (
     <div className="w-full p-3">
       {isPending ? (
-        <>Loading</>
+        <div className="p-2 rounded-md sm:rounded-xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-3">
+            <Skeleton className=" w-full h-72" />
+            <Skeleton className=" w-full h-72" />
+          </div>
+          <div className="p-3 rounded-md sm:rounded-xl">
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20 mt-3" />
+          </div>
+          <div className="p-3 rounded-md sm:rounded-xl">
+            <Skeleton className="h-72" />
+          </div>
+        </div>
       ) : (
         <div className="p-2 bg-gray-400/10 dark:bg-gray-900/40 rounded-md sm:rounded-xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-3">
@@ -78,10 +91,7 @@ const ProjectById = () => {
                   target="_blank"
                   className="sm:px-10 sm:py-8 px-6 py-5 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer"
                 >
-                  <Globe
-                    size={"35"}
-                    className="hover:scale-110"
-                  />
+                  <Globe size={"35"} className="hover:scale-110" />
                   <p className="hover:scale-105 text-base sm:text-xl mt-4 text-center">
                     Deployment Link
                   </p>
@@ -91,10 +101,7 @@ const ProjectById = () => {
                   target="_blank"
                   className="sm:px-10 sm:py-8 px-6 py-5 bg-gray-400/20 dark:bg-gray-900/40 rounded-md sm:rounded-xl w-full flex flex-col items-center cursor-pointer"
                 >
-                  <GithubIcon
-                    size={"35"}
-                    className="hover:scale-110"
-                  />
+                  <GithubIcon size={"35"} className="hover:scale-110" />
                   <p className="hover:scale-105 text-base sm:text-xl mt-4 text-center">
                     Github Link
                   </p>
