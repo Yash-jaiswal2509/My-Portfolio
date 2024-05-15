@@ -39,7 +39,7 @@ const About = () => {
 
   return (
     <div className="w-full h-full p-2 sm:p-5 flex xl:flex-row flex-col gap-2 flex-1">
-      <div className="w-full px-1 sm:px-4 py-8 flex flex-col bg-gray-400/10 dark:bg-gray-900/60 rounded-xl gap-2 shadow-md dark:shadow-white/20">
+      <div className="w-full px-1 sm:px-4 py-8 flex flex-col bg-gray-400/10 dark:bg-gray-900/25 rounded-xl gap-2 shadow-md dark:shadow-white/20">
         <h1 className=" text-2xl font-semibold text-center">My introduction</h1>
         <span className="mb-2">
           {githubInfo ? (
@@ -64,30 +64,30 @@ const About = () => {
           )}
         </span>
         <div className="text-left text-nowrap text-sm flex flex-col gap-1">
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700/80 dark:hover:bg-slate-800/80">
             Name: Yash Jaiswal
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700/80 dark:hover:bg-slate-800/80">
             Degree: Bachelor of Technology
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1 ">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700/80 dark:hover:bg-slate-800/80 flex gap-1 ">
             College:
             <p className="hidden sm:block">
               Sardar Vallabhbhai National Institute of Technology
             </p>
             <p className="sm:hidden">Nit Surat, Gujarat</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-800 flex gap-1 text-xs sm:text-base">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 hover:bg-slate-300/80 dark:bg-slate-700/80 dark:hover:bg-slate-800/80 flex gap-1 text-xs sm:text-base">
             Interests:
             <p className="hidden sm:block">
               Coding, programming and web development
             </p>
             <p className="sm:hidden">Coding, programing, web development</p>
           </h1>
-          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800">
+          <h1 className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700/80 dark:hover:bg-slate-800/80">
             Email: yashjaiswal2509@gmail.com
           </h1>
-          <div className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700 dark:hover:bg-slate-800 flex flex-col gap-2">
+          <div className="py-1 px-2 rounded-lg bg-gray-400/20 dark:bg-slate-700/80 dark:hover:bg-slate-800/80 flex flex-col gap-2">
             <p className="text-lg sm:text-xl text-center">Summary</p>
             <p className="text-wrap text-center sm:text-base text-xs">
               I'm a Fullstack Developer specializing in the MERN Stack, adeptly
@@ -111,7 +111,7 @@ const About = () => {
         className=" w-full rounded-xl shadow-md dark:shadow-white/20 relative"
       >
         <a
-          href="https://drive.google.com/file/d/1cpX9xqzrtIXdAGHdTv2FZO87IpJkn2XR/view?usp=drive_link"
+          href="https://drive.google.com/file/d/1_R3IR3kKFRo9V9Z4r04JkWC5lJY1DJRE/view?usp=drive_link"
           target="_blank"
         >
           <img
