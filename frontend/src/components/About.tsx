@@ -111,7 +111,7 @@ const About = () => {
         className=" w-full rounded-xl shadow-md dark:shadow-white/20 relative"
       >
         <a
-          href="https://drive.google.com/file/d/1_R3IR3kKFRo9V9Z4r04JkWC5lJY1DJRE/view?usp=drive_link"
+          href="https://drive.google.com/file/d/176mHae40wNa-wSds6MHb73CNDEAEXPg8/view?usp=drive_link"
           target="_blank"
         >
           <img
