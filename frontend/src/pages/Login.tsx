@@ -1,5 +1,3 @@
-import { SparklesCore } from "../components/ui/sparkles";
-import { useTheme } from "@/lib/theme-provider";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
@@ -7,7 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as ApiClient from "../api-client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/AuthProvider";
 
@@ -17,25 +15,11 @@ export type LoginFormData = {
 };
 
 const Login = () => {
-  const { theme } = useTheme();
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const [toggleBg, setToggleBg] = useState("#000000");
-  const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
   const { setIsLoggedIn, setAuth } = useAuth();
-
-  useEffect(() => {
-    if (theme === "dark") {
-      setToggleBg("#000000");
-      setToggleParColor("#ffffff");
-    } else {
-      setToggleBg("#ffffff"); // Set to light theme background color
-      setToggleParColor("#000000"); // Set to light theme particle color
-    }
-  }, [theme, setToggleBg, setToggleParColor, toggleBg, toggleParticleColor]);
 
   const {
     register,
@@ -62,19 +46,8 @@ const Login = () => {
   }, [mutation.isSuccess]);
 
   return (
-    <div className="2xl:h-[760px] h-screen bg-gray-400/10 mx-auto 2xl:max-w-screen-2xl">
+    <div className="2xl:h-[760px] h-screen mx-auto 2xl:max-w-screen-2xl w-full dark:bg-background bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <div className="h-full relative w-full flex flex-col justify-center overflow-hidden rounded-xl">
-        <div className="w-full absolute inset-0 h-full">
-          <SparklesCore
-            id="tsparticlesfullpage"
-            background={toggleBg}
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={80}
-            className="w-full h-full"
-            particleColor={toggleParticleColor}
-          />
-        </div>
         <div className="z-20 relative px-4 sm:px-20 md:px-40 py-10 flex flex-col">
           <div className=" flex flex-row">
             <div className=" w-full font-mono">

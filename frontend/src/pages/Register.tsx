@@ -1,5 +1,3 @@
-import { SparklesCore } from "../components/ui/sparkles";
-import { useTheme } from "@/lib/theme-provider";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Button } from "@/components/ui/button";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
@@ -8,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import * as ApiClient from "@/api-client";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
 
 export type RegisterFormData = {
   fullName: string;
@@ -20,20 +17,6 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
-  const { theme } = useTheme();
-  const [toggleBg, setToggleBg] = useState("#000000");
-  const [toggleParticleColor, setToggleParColor] = useState("#ffffff");
-
-  useEffect(() => {
-    if (theme === "dark") {
-      setToggleBg("#000000");
-      setToggleParColor("#ffffff");
-    } else {
-      setToggleBg("#ffffff"); // Set to light theme background color
-      setToggleParColor("#000000"); // Set to light theme particle color
-    }
-  }, [theme]);
-
   const {
     register,
     formState: { errors },
@@ -68,19 +51,9 @@ const Register = () => {
   });
 
   return (
-    <div className="bg-gray-400/10 mx-auto 2xl:max-w-screen-xl">
+    <div className="mx-auto 2xl:max-w-screen-xl h-screen w-full dark:bg-background bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
       <div className="h-full relative w-full flex flex-col justify-center overflow-hidden">
-        <div className="w-full absolute inset-0 h-full">
-          <SparklesCore
-            id="tsparticlesfullpage"
-            background={toggleBg}
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={80}
-            className="w-full h-full"
-            particleColor={toggleParticleColor}
-          />
-        </div>
+        <div className="w-full absolute inset-0 h-full"></div>
         <div className="z-20 relative px-4 sm:px-12 lg:px-28 md:h-dvh 2xl:h-full xl:px-40 py-5 sm:py-10 flex flex-col justify-center">
           <div className=" flex flex-row">
             <div className=" w-full font-mono">
