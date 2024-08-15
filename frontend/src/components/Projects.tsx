@@ -69,7 +69,7 @@ const Projects = () => {
           </div>
         ) : (
           <div className="px-1 py-4 sm:py-0 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {orderedProjects.data.map((project: ProjectType, index: number) => {
+            {orderedProjects.map((project: ProjectType, index: number) => {
               return (
                 <div
                   key={index}
