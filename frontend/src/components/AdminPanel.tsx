@@ -33,6 +33,8 @@ const AdminPanel = () => {
   });
   const projects = ProjectsData?.data || [];
 
+  projects.reverse();
+
   return (
     <div className=" w-full py-6 px-4">
       <h1 className=" m-auto text-center font-bold text-2xl">
