@@ -33,7 +33,9 @@ const AdminPanel = () => {
   });
   const projects = ProjectsData?.data || [];
 
-  projects.reverse();
+  if (projects) {
+    projects.reverse();
+  }
 
   return (
     <div className=" w-full py-6 px-4">

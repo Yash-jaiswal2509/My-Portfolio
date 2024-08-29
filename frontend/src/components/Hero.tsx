@@ -71,7 +71,7 @@ const Hero = () => {
       <div className="flex w-full flex-col gap-5">
         <div className="flex gap-5 md:flex-row flex-col">
           <div className="p-10 flex flex-col gap-5 items-center justify-between bg-gray-400/10 dark:bg-gray-900/25 rounded-xl font-semibold shadow-md dark:shadow-white/20 hover:scale-105">
-            <h1 className="text-2xl text-nowrap">Number of projects</h1>
+            <h1 className="text-2xl text-nowrap">Number of repos</h1>
             <span className="text-5xl">
               {githubInfo ? (
                 githubInfo.public_repos + "+"
