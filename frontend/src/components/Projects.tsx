@@ -44,7 +44,10 @@ const Projects = () => {
     queryFn: fetchProjects,
   });
 
-  const orderedProjects = (ProjectsData?.data).reverse() || [];
+  let orderedProjects = [];
+  if (ProjectsData?.data) {
+    orderedProjects = (ProjectsData?.data).reverse();
+  }
 
 
   return (
